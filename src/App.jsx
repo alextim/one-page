@@ -4,35 +4,14 @@ import { ThemeProvider } from 'emotion-theming';
 import { useCheckLocalStorageSchema, useDarkMode } from './hooks';
 import { themeLight, themeDark } from './themes';
 import GlobalStyles from './components/GlobalStyles';
+import { ScrollSections, menuData } from './components/ScrollSections';
+import Layout from './components/Layout';
 
-import Section from './components/Section';
-
+/*
 import Menu from './components/Menu';
-
-import About from './components/About';
-import Skills from './components/Skills';
-import Experience from './components/Experience';
-import Contact from './components/Contact';
-
-const menuData = {
-  about: { title: 'About', component: About },
-  skills: { title: 'Skills', component: Skills },
-  experience: { title: 'Experience', component: Experience },
-  contact: { title: 'Contact', component: Contact },
-};
+<Menu menuItems={menuItems} />
+*/
 // http://weaintplastic.com/
-const ids = Object.keys(menuData);
-const menuItems = ids.map((id) => ({ id, title: menuData[id].title }));
-
-const ScrollSections = () => (
-  <div>
-    {ids.map((id) => (
-      <Section key={id} id={id} title={menuData[id].title}>
-        {menuData[id].component()}
-      </Section>
-    ))}
-  </div>
-);
 
 const App = () => {
   // Clear local storage is schema version not match
@@ -42,11 +21,12 @@ const App = () => {
   return (
     <ThemeProvider theme={isDark ? themeDark : themeLight}>
       <GlobalStyles />
-      <Menu menuItems={menuItems} />
-      <ScrollSections />
-      <button type="button" onClick={() => setIsDark(!isDark)}>
-        {isDark ? 'light' : 'dark'}
-      </button>
+      <Layout menuData={menuData}>
+        <ScrollSections />
+        <button type="button" onClick={() => setIsDark(!isDark)}>
+          {isDark ? 'light' : 'dark'}
+        </button>
+      </Layout>
     </ThemeProvider>
   );
 };

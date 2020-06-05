@@ -223,6 +223,34 @@ const GlobalStyles = () => {
           color: ${theme.colors.text};
           background-color: ${theme.colors.bg};
         }
+        .main-content {
+          background-color: #fcfcfc;
+          left: 0;
+          z-index: 2;
+
+          margin-top: 3rem;
+          min-height: 100vh;
+          display: flex;
+          flex-direction: column;
+        }
+
+        main {
+          flex: 1 0 auto;
+        }
+
+        footer {
+          color: #181716;
+          background: #e6e6e6;
+          min-height: 235px;
+          overflow: hidden;
+          width: 100%;
+        }
+
+        ${theme.mq.md} {
+          .main-content {
+            margin-top: 3.5rem;
+          }
+        }
       `}
     />
   );
