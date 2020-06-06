@@ -1,13 +1,16 @@
 import React from 'react';
 
-import { useDarkMode } from '../../hooks';
+import { AppContext } from '../../context';
 
 const ThemeToggle = () => {
-  const [isDark, setIsDark] = useDarkMode();
   return (
-    <button type="button" onClick={() => setIsDark(!isDark)}>
-      {isDark ? 'light' : 'dark'}
-    </button>
+    <AppContext.Consumer>
+      {({ isDark, toggleTheme }) => (
+        <button type="button" onClick={toggleTheme}>
+          {isDark ? 'light' : 'dark'}
+        </button>
+      )}
+    </AppContext.Consumer>
   );
 };
 

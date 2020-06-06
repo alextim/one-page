@@ -1,7 +1,9 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { Global, css } from '@emotion/core';
-import { SnackBarContext } from '../../context';
+import { Link } from 'react-router-dom';
+
+import { AppContext } from '../../context';
 
 const Container = styled.div`
   display: block;
@@ -219,8 +221,8 @@ const SnackBar = () => {
           }
         `}
       />
-      <SnackBarContext.Consumer>
-        {({ label, action, open, stacked, onClose }) => (
+      <AppContext.Consumer>
+        {({ snackBar: { label, action, open, stacked, onClose } }) => (
           <Container>
             <Wrapper open={open}>
               <InnerWrapper
@@ -229,9 +231,9 @@ const SnackBar = () => {
                 <Label>{label}</Label>
                 <ActionsWrapper className={`${stacked ? 'sb-aw__stacked' : ''}`}>
                   {action && (
-                    <a href={action.url} className="a-button sb-action">
+                    <Link to={action.url} className="a-button sb-action" onClick={onClose}>
                       {action.title}
-                    </a>
+                    </Link>
                   )}
                   <button type="button" className="a-button sb-action" onClick={onClose}>
                     Ok
@@ -241,7 +243,7 @@ const SnackBar = () => {
             </Wrapper>
           </Container>
         )}
-      </SnackBarContext.Consumer>
+      </AppContext.Consumer>
     </>
   );
 };

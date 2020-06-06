@@ -4,7 +4,6 @@ import useScrollMenu from './useScrollMenu';
 
 import {
   useSelectedLanguage,
-  useSelectedSpokenLanguage,
   useDarkMode,
   useCookieWarned,
   useCheckLocalStorageSchema,
@@ -15,7 +14,6 @@ export {
   useScrollYPosition,
   useScrollMenu,
   useSelectedLanguage,
-  useSelectedSpokenLanguage,
   useDarkMode,
   useCookieWarned,
   useCheckLocalStorageSchema,

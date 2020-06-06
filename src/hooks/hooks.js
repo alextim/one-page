@@ -3,16 +3,14 @@ import { useEffect } from 'react';
 import useLocalStorage from './useLocalStorage';
 import {
   KEY_SELECTED_CODE_LANGUAGE,
-  KEY_SELECTED_SPOKEN_LANGUAGE,
   KEY_SCHEMA_VERSION,
   KEY_DARK_MODE,
   KEY_COOKIE_WARNED,
   CURRENT_SCHEMA_VERSION,
 } from '../helpers/localStorage';
 
-export const useSelectedLanguage = () => useLocalStorage(KEY_SELECTED_CODE_LANGUAGE, 'en'); // allLanguagesValue);
+export const useSelectedLanguage = () => useLocalStorage(KEY_SELECTED_CODE_LANGUAGE, 'en');
 
-export const useSelectedSpokenLanguage = () => useLocalStorage(KEY_SELECTED_SPOKEN_LANGUAGE, 'en'); // allSpokenLanguagesValue);
 
 export const useDarkMode = () => {
   const preferDarkQuery = '(prefers-color-scheme: dark)';
@@ -30,7 +28,7 @@ export const useDarkMode = () => {
   return [mode, setMode];
 };
 
-export const useCookieWarned = () => useLocalStorage(KEY_COOKIE_WARNED, false); // allSpokenLanguagesValue);
+export const useCookieWarned = () => useLocalStorage(KEY_COOKIE_WARNED, false);
 
 export const useCheckLocalStorageSchema = () => {
   const [schemaVersion, setSchemaVersion] = useLocalStorage(KEY_SCHEMA_VERSION);

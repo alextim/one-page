@@ -2,6 +2,8 @@ import React from 'react';
 import { HashLink as Link } from 'react-router-hash-link';
 import styled from '@emotion/styled';
 
+import scrollWidthOffset from '../../../../helpers/scrollWithOffset';
+
 const Wrapper = styled.li`
   display: block;
   width: 100%;
@@ -68,19 +70,13 @@ const NavItem = ({ title, to, targetId, active, isMenuOpen, setIsMenuOpen }) => 
     }
   };
 
-  const scrollWidthOffset = (el) => {
-    const yOffset = -56;
-    const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
-    window.scrollTo({ top: y, behavior: 'smooth' });
-  };
-
   return (
     <Wrapper>
       <Anchor
         to={targetId ? `/#${targetId}` : to}
         style={active ? { color: 'red' } : {}}
         aria-label={`Go to ${title}`}
-        scroll={(el) => scrollWidthOffset(el)}
+        scroll={scrollWidthOffset}
         onClick={handleClick}
       >
         {title}

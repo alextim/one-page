@@ -2,12 +2,18 @@ import React, { useState } from 'react';
 import { ThemeProvider } from 'emotion-theming';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
-import { useCheckLocalStorageSchema, useDarkMode, useCookieWarned } from './hooks';
+import {
+  useCheckLocalStorageSchema,
+  useDarkMode,
+  useSelectedLanguage,
+  // useCookieWarned,
+} from './hooks';
 import { themeLight, themeDark } from './themes';
 import GlobalStyles from './components/GlobalStyles';
-import { SnackBarContext } from './context';
+import { AppContext } from './context';
 import Home from './components/Home';
 import Privacy from './components/Privacy';
+import Page404 from './components/Page404';
 /*
 import Menu from './components/Menu';
 <Menu menuItems={menuItems} />
@@ -17,25 +23,37 @@ import Menu from './components/Menu';
 const App = () => {
   // Clear local storage is schema version not match
   useCheckLocalStorageSchema();
-  const [isDark] = useDarkMode();
+  const [isDark, setIsDark] = useDarkMode();
   // const [isCookieWarned, setIsCookieWarned] = useCookieWarned();
+  const [selectedLanguage, setSelectedLanguage] = useSelectedLanguage();
   const [isCookieWarned, setIsCookieWarned] = useState(false);
 
-  const snackBarInitial = {
+  const snackBar = {
     label:
       'We serve cookies on this site to analyze traffic, remember your preferences, and optimize your experience.',
     stacked: true,
     action: {
-      url: '/',
+      url: '/privacy',
       title: 'More details',
     },
     open: !isCookieWarned,
     onClose: () => setIsCookieWarned(true),
   };
 
+  const toggleTheme = () => setIsDark(!isDark);
+  const toggleLanguage = () => setSelectedLanguage(selectedLanguage === 'en' ? 'ru' : 'en');
+
+  const appContext = {
+    snackBar,
+    isDark,
+    toggleTheme,
+    selectedLanguage,
+    toggleLanguage,
+  };
+
   return (
     <ThemeProvider theme={isDark ? themeDark : themeLight}>
-      <SnackBarContext.Provider value={snackBarInitial}>
+      <AppContext.Provider value={appContext}>
         <GlobalStyles />
         <Router>
           <Switch>
@@ -45,9 +63,10 @@ const App = () => {
             <Route exact path="/privacy">
               <Privacy />
             </Route>
+            <Route component={Page404} />
           </Switch>
         </Router>
-      </SnackBarContext.Provider>
+      </AppContext.Provider>
     </ThemeProvider>
   );
 };
