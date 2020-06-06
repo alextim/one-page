@@ -8,9 +8,9 @@ import { useScrollMenu } from '../../../../hooks';
 
 const Wrapper = styled.div`
   position: absolute;
-  top: 3rem;
+  top: ${(props) => props.theme.navbar.h[0]};
   left: 0;
-  height: calc(100vh - 3rem);
+  height: calc(100vh - ${(props) => props.theme.navbar.h[0]});
   width: 100%;
   margin: auto;
   background-color: #fff;
@@ -48,9 +48,9 @@ const NavItems = styled.ul`
   }
 `;
 
-const Menu = ({ menuData, open }) => {
+const Menu = ({ menuData, isMenuOpen, setIsMenuOpen }) => {
   const theme = useTheme();
-  const { activeItem } = useScrollMenu(menuData);
+  const { activeItem } = useScrollMenu(menuData, 48);
   return (
     <>
       <Global
@@ -60,7 +60,7 @@ const Menu = ({ menuData, open }) => {
             visibility: hidden;
             transform: translateX(-110%);
 
-            &.mm--open {
+            &.js-mm--open {
               pointer-events: auto;
               visibility: visible;
               transform: unset;
@@ -73,7 +73,7 @@ const Menu = ({ menuData, open }) => {
           }
         `}
       />
-      <Wrapper className={`mm${open ? ' mm--open' : ''}`}>
+      <Wrapper className={`mm${isMenuOpen ? ' js-mm--open' : ''}`}>
         <NavItems>
           {menuData.map(({ title, to, targetId }, i) => (
             <NavItem
@@ -83,6 +83,8 @@ const Menu = ({ menuData, open }) => {
               to={to}
               targetId={targetId}
               active={targetId === activeItem}
+              isMenuOpen={isMenuOpen}
+              setIsMenuOpen={setIsMenuOpen}
             />
           ))}
         </NavItems>

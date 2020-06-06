@@ -2,8 +2,8 @@ import React from 'react';
 import styled from '@emotion/styled';
 
 const Wrap = styled.div`
-  background-color: #005587;
-  box-shadow: 0 5px 7px -6px #000;
+  background-color: ${(props) => props.theme.hamburger.bg};
+  box-shadow: 0 5px 7px -6px ${(props) => props.theme.hamburger.shadow};
   height: 2.5rem;
   width: 2.5rem;
   cursor: pointer;
@@ -30,14 +30,14 @@ const InnerWrap = styled.div`
     border-radius: 1px;
     height: 0.125rem;
     width: 1.25rem;
-    background: white;
+    background: ${(props) => props.theme.hamburger.color};
     position: absolute;
     display: block;
     content: '';
     transition: all 300ms ease-in-out;
   }
   span {
-    background-color: ${(props) => (props.open ? 'transparent' : 'white')};
+    background-color: ${(props) => (props.open ? 'transparent' : props.theme.hamburger.color)};
   }
   span:before {
     top: ${(props) => (props.open ? 0 : '-0.625rem')};

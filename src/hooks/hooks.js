@@ -6,6 +6,7 @@ import {
   KEY_SELECTED_SPOKEN_LANGUAGE,
   KEY_SCHEMA_VERSION,
   KEY_DARK_MODE,
+  KEY_COOKIE_WARNED,
   CURRENT_SCHEMA_VERSION,
 } from '../helpers/localStorage';
 
@@ -28,6 +29,8 @@ export const useDarkMode = () => {
 
   return [mode, setMode];
 };
+
+export const useCookieWarned = () => useLocalStorage(KEY_COOKIE_WARNED, false); // allSpokenLanguagesValue);
 
 export const useCheckLocalStorageSchema = () => {
   const [schemaVersion, setSchemaVersion] = useLocalStorage(KEY_SCHEMA_VERSION);

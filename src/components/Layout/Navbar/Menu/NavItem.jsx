@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { HashLink as Link } from 'react-router-hash-link';
 import styled from '@emotion/styled';
 
 const Wrapper = styled.li`
@@ -19,7 +20,7 @@ const Wrapper = styled.li`
   }
 `;
 
-const Anchor = styled.a`
+const Anchor = styled(Link)`
   display: inline-flex;
   align-items: center;
   justify-content: space-between;
@@ -60,35 +61,26 @@ const Anchor = styled.a`
   }
 `;
 
-const NavItem = ({ title, to, targetId, active }) => {
-  const [anchorTarget, setAnchorTarget] = useState(null);
+const NavItem = ({ title, to, targetId, active, isMenuOpen, setIsMenuOpen }) => {
+  const handleClick = () => {
+    if (isMenuOpen) {
+      setIsMenuOpen(false);
+    }
+  };
 
-  let handleClick;
-  let func;
-  let ariaCaption;
-
-  if (targetId) {
-    handleClick = (e) => {
-      e.preventDefault();
-      anchorTarget.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    };
-
-    func = () => setAnchorTarget(document.getElementById(targetId));
-    ariaCaption = 'Scroll';
-  } else {
-    func = () => {};
-    ariaCaption = 'Go';
-  }
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(func, []);
+  const scrollWidthOffset = (el) => {
+    const yOffset = -56;
+    const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
+    window.scrollTo({ top: y, behavior: 'smooth' });
+  };
 
   return (
     <Wrapper>
       <Anchor
-        href={targetId ? `#${targetId}` : to}
-        active={active}
-        aria-label={`${ariaCaption} to ${title}`}
+        to={targetId ? `/#${targetId}` : to}
+        style={active ? { color: 'red' } : {}}
+        aria-label={`Go to ${title}`}
+        scroll={(el) => scrollWidthOffset(el)}
         onClick={handleClick}
       >
         {title}

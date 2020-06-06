@@ -6,7 +6,7 @@ import MenuItem from './MenuItem';
 import { useScrollMenu } from '../../hooks';
 
 const Menu = ({ menuItems }) => {
-  const { activeItem } = useScrollMenu(menuItems);
+  const { activeItem } = useScrollMenu(menuItems, 0);
 
   return (
     <MenuItems>

@@ -6,6 +6,7 @@ import {
   useSelectedLanguage,
   useSelectedSpokenLanguage,
   useDarkMode,
+  useCookieWarned,
   useCheckLocalStorageSchema,
 } from './hooks';
 
@@ -16,5 +17,6 @@ export {
   useSelectedLanguage,
   useSelectedSpokenLanguage,
   useDarkMode,
+  useCookieWarned,
   useCheckLocalStorageSchema,
 };

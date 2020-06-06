@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ThemeProvider } from 'emotion-theming';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
-import { useCheckLocalStorageSchema, useDarkMode } from './hooks';
+import { useCheckLocalStorageSchema, useDarkMode, useCookieWarned } from './hooks';
 import { themeLight, themeDark } from './themes';
 import GlobalStyles from './components/GlobalStyles';
-import { ScrollSections, menuData } from './components/ScrollSections';
-import Layout from './components/Layout';
-
+import { SnackBarContext } from './context';
+import Home from './components/Home';
+import Privacy from './components/Privacy';
 /*
 import Menu from './components/Menu';
 <Menu menuItems={menuItems} />
@@ -16,17 +17,37 @@ import Menu from './components/Menu';
 const App = () => {
   // Clear local storage is schema version not match
   useCheckLocalStorageSchema();
-  const [isDark, setIsDark] = useDarkMode();
+  const [isDark] = useDarkMode();
+  // const [isCookieWarned, setIsCookieWarned] = useCookieWarned();
+  const [isCookieWarned, setIsCookieWarned] = useState(false);
+
+  const snackBarInitial = {
+    label:
+      'We serve cookies on this site to analyze traffic, remember your preferences, and optimize your experience.',
+    stacked: true,
+    action: {
+      url: '/',
+      title: 'More details',
+    },
+    open: !isCookieWarned,
+    onClose: () => setIsCookieWarned(true),
+  };
 
   return (
     <ThemeProvider theme={isDark ? themeDark : themeLight}>
-      <GlobalStyles />
-      <Layout menuData={menuData}>
-        <ScrollSections />
-        <button type="button" onClick={() => setIsDark(!isDark)}>
-          {isDark ? 'light' : 'dark'}
-        </button>
-      </Layout>
+      <SnackBarContext.Provider value={snackBarInitial}>
+        <GlobalStyles />
+        <Router>
+          <Switch>
+            <Route exact path="/">
+              <Home />
+            </Route>
+            <Route exact path="/privacy">
+              <Privacy />
+            </Route>
+          </Switch>
+        </Router>
+      </SnackBarContext.Provider>
     </ThemeProvider>
   );
 };

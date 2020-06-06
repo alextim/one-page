@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { Global, css } from '@emotion/core';
+import { SnackBarContext } from '../../context';
 
 const Container = styled.div`
   display: block;
@@ -43,7 +44,7 @@ const ActionsWrapper = styled.div`
   margin-right: 8px;
 `;
 
-const SnackBar = ({ label, action, open, stacked, closeHandler }) => {
+const SnackBar = () => {
   return (
     <>
       <Global
@@ -218,25 +219,29 @@ const SnackBar = ({ label, action, open, stacked, closeHandler }) => {
           }
         `}
       />
-      <Container>
-        <Wrapper open={open}>
-          <InnerWrapper
-            className={`${open ? 'sb-iw__open ' : ''}${stacked ? 'sb-iw__stacked' : ''}`}
-          >
-            <Label>{label}</Label>
-            <ActionsWrapper className={`${stacked ? 'sb-aw__stacked' : ''}`}>
-              {action && (
-                <a href={action.url} className="a-button sb-action">
-                  {action.title}
-                </a>
-              )}
-              <button type="button" className="a-button sb-action" onClick={closeHandler}>
-                Ok
-              </button>
-            </ActionsWrapper>
-          </InnerWrapper>
-        </Wrapper>
-      </Container>
+      <SnackBarContext.Consumer>
+        {({ label, action, open, stacked, onClose }) => (
+          <Container>
+            <Wrapper open={open}>
+              <InnerWrapper
+                className={`${open ? 'sb-iw__open ' : ''}${stacked ? 'sb-iw__stacked' : ''}`}
+              >
+                <Label>{label}</Label>
+                <ActionsWrapper className={`${stacked ? 'sb-aw__stacked' : ''}`}>
+                  {action && (
+                    <a href={action.url} className="a-button sb-action">
+                      {action.title}
+                    </a>
+                  )}
+                  <button type="button" className="a-button sb-action" onClick={onClose}>
+                    Ok
+                  </button>
+                </ActionsWrapper>
+              </InnerWrapper>
+            </Wrapper>
+          </Container>
+        )}
+      </SnackBarContext.Consumer>
     </>
   );
 };
