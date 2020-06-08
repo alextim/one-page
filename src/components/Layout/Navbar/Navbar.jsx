@@ -7,8 +7,8 @@ import { Wrapper, Left, Right } from './styled';
 import Hamburger from './Menu/Hamburger';
 import Logo from './Logo';
 import Menu from './Menu';
-import ThemeToggle from '../../ThemeToggle';
-import LanguageToggle from '../../LanguageToggle';
+import { ColorModeToggle, LocaleToggle } from '../../Toggles';
+
 /*
 const getWidth = () => window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
 
@@ -85,15 +85,10 @@ const Navbar = ({ menuData }) => {
           </Left>
           <Menu menuData={menuData} isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpenWrap} />
           <Right>
-            <LanguageToggle />
-            <ThemeToggle />
+            <LocaleToggle />
+            <ColorModeToggle />
             <div>
-              <b>
-                {
-                  // eslint-disable-next-line no-plusplus
-                  ++rendersCount.current
-                }
-              </b>
+              <b>{++rendersCount.current}</b>
             </div>
           </Right>
         </Wrapper>

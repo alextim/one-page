@@ -18,7 +18,7 @@ module.exports = {
     jest: true,
     node: true,
   },
-  extends: ['airbnb', 'airbnb/hooks', 'plugin:prettier/recommended', 'prettier/react'],
+  extends: ['prettier', 'airbnb', 'airbnb/hooks', 'prettier/react', 'plugin:prettier/recommended'],
   parser: 'babel-eslint',
   parserOptions: {
     ecmaFeatures: {
@@ -27,10 +27,10 @@ module.exports = {
     ecmaVersion: 2018,
     sourceType: 'module',
   },
-  plugins: ['react', 'react-hooks', 'prettier'],
+  plugins: ['prettier', 'emotion', 'react', 'react-hooks', 'import'],
   rules: {
     indent: ['error', 2, { SwitchCase: 1 }],
-    quotes: [2, 'single', { 'avoidEscape': true }],
+    quotes: [2, 'single', { avoidEscape: true }],
     'jsx-quotes': [2, 'prefer-double'],
     semi: ['error', 'always'],
     'linebreak-style': ['error', 'windows'],
@@ -40,6 +40,8 @@ module.exports = {
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
     'prettier/prettier': ['error', { endOfLine: 'auto' }],
+    // Allowing ++ on numbers
+    'no-plusplus': 'off',
   },
   settings: {
     react: {
@@ -47,7 +49,7 @@ module.exports = {
     },
   },
   globals: {
-    //globalThis: false, // false means it is not writeable.
+    // globalThis: false, // false means it is not writeable.
     // See https://github.com/eslint/eslint/issues/11553.
   },
 };

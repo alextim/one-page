@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { Global, css } from '@emotion/core';
 import { Link } from 'react-router-dom';
 
-import { AppContext } from '../../context';
+import { useSnackBar } from '../../context';
 
 const Container = styled.div`
   display: block;
@@ -22,7 +22,7 @@ const Container = styled.div`
 const Wrapper = styled.div`
   display: flex;
   align-items: center;
-  visibility: ${(props) => (props.open ? 'visible' : 'hidden')};
+  visibility: ${(p) => (p.open ? 'visible' : 'hidden')};
 `;
 
 const InnerWrapper = styled.div`
@@ -47,6 +47,7 @@ const ActionsWrapper = styled.div`
 `;
 
 const SnackBar = () => {
+  const { label, action, open, stacked, onClose } = useSnackBar();
   return (
     <>
       <Global
@@ -108,7 +109,7 @@ const SnackBar = () => {
             vertical-align: middle;
             white-space: nowrap;
 
-            &:after {
+            &::after {
               bottom: 0;
               content: '';
               left: 0;
@@ -120,10 +121,10 @@ const SnackBar = () => {
               z-index: 1;
             }
 
-            &:active::after {
+            &::active::after {
               background-color: rgba(55, 64, 255, 0.16);
             }
-            &:focus:not(.focus-visible) {
+            &::focus:not(.focus-visible) {
               js-focus-visible & {
                 outline: none;
               }
@@ -221,29 +222,25 @@ const SnackBar = () => {
           }
         `}
       />
-      <AppContext.Consumer>
-        {({ snackBar: { label, action, open, stacked, onClose } }) => (
-          <Container>
-            <Wrapper open={open}>
-              <InnerWrapper
-                className={`${open ? 'sb-iw__open ' : ''}${stacked ? 'sb-iw__stacked' : ''}`}
-              >
-                <Label>{label}</Label>
-                <ActionsWrapper className={`${stacked ? 'sb-aw__stacked' : ''}`}>
-                  {action && (
-                    <Link to={action.url} className="a-button sb-action" onClick={onClose}>
-                      {action.title}
-                    </Link>
-                  )}
-                  <button type="button" className="a-button sb-action" onClick={onClose}>
-                    Ok
-                  </button>
-                </ActionsWrapper>
-              </InnerWrapper>
-            </Wrapper>
-          </Container>
-        )}
-      </AppContext.Consumer>
+      <Container>
+        <Wrapper open={open}>
+          <InnerWrapper
+            className={`${open ? 'sb-iw__open ' : ''}${stacked ? 'sb-iw__stacked' : ''}`}
+          >
+            <Label>{label}</Label>
+            <ActionsWrapper className={`${stacked ? 'sb-aw__stacked' : ''}`}>
+              {action && (
+                <Link to={action.url} className="a-button sb-action" onClick={onClose}>
+                  {action.title}
+                </Link>
+              )}
+              <button type="button" className="a-button sb-action" onClick={onClose}>
+                Ok
+              </button>
+            </ActionsWrapper>
+          </InnerWrapper>
+        </Wrapper>
+      </Container>
     </>
   );
 };

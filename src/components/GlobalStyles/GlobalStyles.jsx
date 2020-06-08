@@ -13,6 +13,7 @@ const GlobalStyles = () => {
         *::after {
           box-sizing: border-box;
         }
+
         div,
         dl,
         dt,
@@ -39,17 +40,12 @@ const GlobalStyles = () => {
           padding: 0;
           overflow-wrap: break-word;
           word-wrap: break-word;
-        }
 
-        /* яяяяяяя */
-        html,
-        body {
+          /* яяяяяяя */
           width: 100%;
           height: 100%;
         }
-        body {
-          min-height: 100%;
-        }
+
         #root {
           min-height: 100vh;
         }
@@ -59,6 +55,7 @@ const GlobalStyles = () => {
         }
 
         body {
+          min-height: 100%;
           font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
             'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
           line-height: 1.4;
@@ -67,6 +64,8 @@ const GlobalStyles = () => {
           font-style: normal;
           text-size-adjust: 100%;
           vertical-align: baseline;
+          color: ${theme.colors.text};
+          background-color: ${theme.colors.bg};
         }
 
         a,
@@ -176,6 +175,7 @@ const GlobalStyles = () => {
         button {
           cursor: pointer;
         }
+
         a {
           color: inherit;
           background-color: transparent;
@@ -202,6 +202,7 @@ const GlobalStyles = () => {
         :visited:active {
           outline: 1px solid #3740ff;
         }
+
         a:focus,
         a:active,
         a:hover,
@@ -219,19 +220,14 @@ const GlobalStyles = () => {
           min-width: 36px;
         }
 
-        body {
-          color: ${theme.colors.text};
-          background-color: ${theme.colors.bg};
-        }
         .main-content {
-          background-color: ${theme.colors.bg};
-          left: 0;
-          z-index: 2;
-
-          margin-top: ${theme.navbar.h[0]};
-          min-height: 100vh;
           display: flex;
           flex-direction: column;
+          left: 0;
+          margin-top: ${theme.navbar.h[0]};
+          min-height: 100vh;
+          background-color: ${theme.colors.bg};
+          z-index: 2;
         }
 
         main {

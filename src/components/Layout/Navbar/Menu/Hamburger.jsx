@@ -2,13 +2,14 @@ import React from 'react';
 import styled from '@emotion/styled';
 
 const Wrap = styled.div`
-  background-color: ${(props) => props.theme.hamburger.bg};
-  box-shadow: 0 5px 7px -6px ${(props) => props.theme.hamburger.shadow};
+  background-color: ${(p) => p.theme.hamburger.bg};
+  box-shadow: 0 5px 7px -6px ${(p) => p.theme.hamburger.shadow};
   height: 2.5rem;
   width: 2.5rem;
   cursor: pointer;
   margin-right: 1rem;
-  ${(props) => props.theme.mq.md} {
+
+  ${(p) => p.theme.mq.md} {
     display: none;
   }
 `;
@@ -25,28 +26,31 @@ const InnerWrap = styled.div`
   transition: 0.5s ease-in-out;
 
   span,
-  span:before,
-  span:after {
+  span::before,
+  span::after {
     border-radius: 1px;
     height: 0.125rem;
     width: 1.25rem;
-    background: ${(props) => props.theme.hamburger.color};
+    background: ${(p) => p.theme.hamburger.color};
     position: absolute;
     display: block;
     content: '';
     transition: all 300ms ease-in-out;
   }
+
   span {
-    background-color: ${(props) => (props.open ? 'transparent' : props.theme.hamburger.color)};
-  }
-  span:before {
-    top: ${(props) => (props.open ? 0 : '-0.625rem')};
-    transform: ${(props) => (props.open ? 'rotate(45deg)' : 'none')};
-  }
-  span:after {
-    top: ${(props) => (props.open ? 0 : '0.625rem')};
-    bottom: -0.625rem;
-    transform: ${(props) => (props.open ? 'rotate(-45deg)' : 'none')};
+    background-color: ${(p) => (p.open ? 'transparent' : p.theme.hamburger.color)};
+
+    &::before {
+      top: ${(p) => (p.open ? 0 : '-0.625rem')};
+      transform: ${(p) => (p.open ? 'rotate(45deg)' : 'none')};
+    }
+
+    &::after {
+      top: ${(p) => (p.open ? 0 : '0.625rem')};
+      bottom: -0.625rem;
+      transform: ${(p) => (p.open ? 'rotate(-45deg)' : 'none')};
+    }
   }
 `;
 

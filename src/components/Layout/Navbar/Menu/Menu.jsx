@@ -1,36 +1,31 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 import { Global, css } from '@emotion/core';
 import { useTheme } from 'emotion-theming';
+import { useLocation } from 'react-router-dom';
 
 import NavItem from './NavItem';
-import { useScrollMenu } from '../../../../hooks';
 
 const Wrapper = styled.div`
   position: absolute;
-  top: ${(props) => props.theme.navbar.h[0]};
+  top: ${(p) => p.theme.navbar.h[0]};
   left: 0;
-  height: calc(100vh - ${(props) => props.theme.navbar.h[0]});
+  height: calc(100vh - ${(p) => p.theme.navbar.h[0]});
   width: 100%;
   margin: auto;
-  background-color: #fff;
-
-  z-index: 100;
-
+  background-color: inherit;
   overflow-y: auto;
-
   transition: transform 0.5s linear;
   will-change: transform;
+  z-index: 100;
 
-  ${(props) => props.theme.mq.md} {
+  ${(p) => p.theme.mq.md} {
     position: static;
     display: inline-flex;
     align-items: center;
-
+    top: 0;
     height: 100%;
-
     overflow: visible;
-
     transition: unset !important;
     will-change: unset !important;
   }
@@ -38,7 +33,7 @@ const Wrapper = styled.div`
 
 const NavItems = styled.ul`
   border-top: 1px solid #ebebeb;
-  ${(props) => props.theme.mq.md} {
+  ${(p) => p.theme.mq.md} {
     display: inline-flex;
     flex-direction: row;
     align-items: center;
@@ -49,8 +44,32 @@ const NavItems = styled.ul`
 `;
 
 const Menu = ({ menuData, isMenuOpen, setIsMenuOpen }) => {
+  const { pathname, hash } = useLocation();
+  const [activeItem, setActiveItem] = useState(null);
+
+  useEffect(() => {
+    const targetId = hash ? hash.substr(1) : '';
+    for (let i = 0; i < menuData.length; i++) {
+      if (targetId === menuData[i].targetId) {
+        setActiveItem(i);
+        return;
+      }
+      if (pathname === menuData[i].to) {
+        setActiveItem(i);
+        return;
+      }
+    }
+    setActiveItem(null);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pathname, hash]);
   const theme = useTheme();
-  const { activeItem } = useScrollMenu(menuData, 48);
+
+  const onClick = () => {
+    if (isMenuOpen) {
+      setIsMenuOpen(false);
+    }
+  };
+
   return (
     <>
       <Global
@@ -79,12 +98,12 @@ const Menu = ({ menuData, isMenuOpen, setIsMenuOpen }) => {
             <NavItem
               // eslint-disable-next-line react/no-array-index-key
               key={i}
+              no={i}
+              isActive={i === activeItem}
               title={title}
               to={to}
               targetId={targetId}
-              active={targetId === activeItem}
-              isMenuOpen={isMenuOpen}
-              setIsMenuOpen={setIsMenuOpen}
+              onClick={onClick}
             />
           ))}
         </NavItems>

@@ -1,6 +1,5 @@
 import useLocalStorage from './useLocalStorage';
 import useScrollYPosition from './useScrollYPosition';
-import useScrollMenu from './useScrollMenu';
 
 import {
   useSelectedLanguage,
@@ -12,7 +11,6 @@ import {
 export {
   useLocalStorage,
   useScrollYPosition,
-  useScrollMenu,
   useSelectedLanguage,
   useDarkMode,
   useCookieWarned,

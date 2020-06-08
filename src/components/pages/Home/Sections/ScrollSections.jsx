@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Section from '../Section';
+import Section from '../../../Section';
 import About from './About';
 import Skills from './Skills';
 import Experience from './Experience';
@@ -14,7 +14,10 @@ const sections = {
 };
 
 const ids = Object.keys(sections);
-export const menuData = ids.map((id) => ({ targetId: id, title: sections[id].title }));
+export const menuData = [
+  ...ids.map((id) => ({ targetId: id, title: sections[id].title })),
+  { to: '/blog', title: 'Blog' },
+];
 
 const ScrollSections = () => (
   <div>

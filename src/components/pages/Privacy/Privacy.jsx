@@ -1,18 +1,9 @@
-import React, { useEffect } from 'react';
-import Layout from '../Layout';
-import { menuData } from '../Sections';
-
-const ScrollToTopOnMount = () => {
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
-  return null;
-};
+import React from 'react';
+import Layout from '../../Layout';
+import { menuData } from '../Home/Sections';
 
 const Privacy = () => (
   <Layout menuData={menuData}>
-    <ScrollToTopOnMount />
     <div>Start</div>
     Lorem ipsum dolor sit amet, qui no mutat facilis concludaturque, duo summo detraxit ne, no eum
     legendos invenire. Scripta postulant sea eu. Ubique ignota mel in, aperiri epicuri eam no. Sit

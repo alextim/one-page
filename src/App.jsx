@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ThemeProvider } from 'emotion-theming';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, useLocation } from 'react-router-dom';
+
+import * as ROUTES from './constants/routes';
 
 import {
   useCheckLocalStorageSchema,
@@ -10,15 +12,38 @@ import {
 } from './hooks';
 import { themeLight, themeDark } from './themes';
 import GlobalStyles from './components/GlobalStyles';
-import { AppContext } from './context';
-import Home from './components/Home';
-import Privacy from './components/Privacy';
-import Page404 from './components/Page404';
-/*
-import Menu from './components/Menu';
-<Menu menuItems={menuItems} />
-*/
+import { ColorModeProvider, I18nProvider, SnackBarProvider } from './context';
+
+import Home from './components/pages/Home';
+import Blog from './components/pages/Blog';
+import Privacy from './components/pages/Privacy';
+import Page404 from './components/pages/Page404';
+
 // http://weaintplastic.com/
+
+const ScrollToPosOnMount = () => {
+  const { hash } = useLocation();
+  useEffect(() => {
+    let yOffset;
+    const header = document.getElementById('header');
+    if (header) {
+      yOffset = header.getBoundingClientRect().height;
+    } else {
+      yOffset = 56;
+    }
+    let y = 0;
+    if (hash) {
+      const id = hash.substr(1);
+      const el = document.getElementById(id);
+      if (el) {
+        y = el.getBoundingClientRect().top + window.pageYOffset - yOffset;
+      }
+    }
+    window.scrollTo({ top: y, behavior: 'smooth' });
+  }, [hash]);
+
+  return null;
+};
 
 const App = () => {
   // Clear local storage is schema version not match
@@ -28,45 +53,33 @@ const App = () => {
   const [selectedLanguage, setSelectedLanguage] = useSelectedLanguage();
   const [isCookieWarned, setIsCookieWarned] = useState(false);
 
-  const snackBar = {
-    label:
-      'We serve cookies on this site to analyze traffic, remember your preferences, and optimize your experience.',
-    stacked: true,
-    action: {
-      url: '/privacy',
-      title: 'More details',
-    },
-    open: !isCookieWarned,
-    onClose: () => setIsCookieWarned(true),
-  };
-
-  const toggleTheme = () => setIsDark(!isDark);
-  const toggleLanguage = () => setSelectedLanguage(selectedLanguage === 'en' ? 'ru' : 'en');
-
-  const appContext = {
-    snackBar,
-    isDark,
-    toggleTheme,
-    selectedLanguage,
-    toggleLanguage,
-  };
-
   return (
     <ThemeProvider theme={isDark ? themeDark : themeLight}>
-      <AppContext.Provider value={appContext}>
-        <GlobalStyles />
-        <Router>
-          <Switch>
-            <Route exact path="/">
-              <Home />
-            </Route>
-            <Route exact path="/privacy">
-              <Privacy />
-            </Route>
-            <Route component={Page404} />
-          </Switch>
-        </Router>
-      </AppContext.Provider>
+      <ColorModeProvider isDark={isDark} setIsDark={setIsDark}>
+        <I18nProvider locale={selectedLanguage} setLocale={setSelectedLanguage}>
+          <SnackBarProvider
+            label="We serve cookies on this site to analyze traffic, remember your preferences, and optimize your experience."
+            stacked
+            action={{
+              url: '/privacy',
+              title: 'More details',
+            }}
+            open={!isCookieWarned}
+            onClose={() => setIsCookieWarned(true)}
+          >
+            <GlobalStyles />
+            <Router>
+              <ScrollToPosOnMount />
+              <Switch>
+                <Route exact path={ROUTES.LANDING} component={Home} />
+                <Route exact path={ROUTES.PRIVACY} component={Privacy} />
+                <Route exact path={ROUTES.BLOG} component={Blog} />
+                <Route component={Page404} />
+              </Switch>
+            </Router>
+          </SnackBarProvider>
+        </I18nProvider>
+      </ColorModeProvider>
     </ThemeProvider>
   );
 };

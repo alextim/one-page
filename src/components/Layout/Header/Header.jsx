@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
+
 import useDocumentScrollThrottled from './useDocumentScrollThrottled';
 
 const Wrapper = styled.header`
@@ -7,10 +8,16 @@ const Wrapper = styled.header`
   top: 0;
   left: 0;
   width: 100%;
-  color: #202124;
-  z-index: 100;
-  // transition: transform .8s ease-in-out;
+  color: ${(p) => p.theme.header.color};
+  background-color: ${(p) => p.theme.header.bg};
+
+  /* transition: transform .8s ease-in-out; */
   box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.3), 0 2px 6px 2px rgba(60, 64, 67, 0.15);
+  z-index: 100;
+
+  a {
+    color: ${(p) => p.theme.header.color};
+  }
 `;
 
 const Header = ({ children }) => {
@@ -35,7 +42,11 @@ const Header = ({ children }) => {
   const shadowStyle = shouldShowShadow ? { boxShadow: '0 9px 9px -9px rgba(0, 0, 0, 0.13)' } : {};
   const hiddenStyle = shouldHideHeader ? { transform: 'translateY(-110%)' } : {};
 
-  return <Wrapper css={{ ...shadowStyle, ...hiddenStyle }}>{children}</Wrapper>;
+  return (
+    <Wrapper id="header" css={{ ...shadowStyle, ...hiddenStyle }}>
+      {children}
+    </Wrapper>
+  );
 };
 
 export default Header;

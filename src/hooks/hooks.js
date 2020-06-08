@@ -11,7 +11,6 @@ import {
 
 export const useSelectedLanguage = () => useLocalStorage(KEY_SELECTED_CODE_LANGUAGE, 'en');
 
-
 export const useDarkMode = () => {
   const preferDarkQuery = '(prefers-color-scheme: dark)';
   const [mode, setMode] = useLocalStorage(
