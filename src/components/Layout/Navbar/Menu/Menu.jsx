@@ -13,7 +13,10 @@ const Wrapper = styled.div`
   height: calc(100vh - ${(p) => p.theme.navbar.h[0]});
   width: 100%;
   margin: auto;
-  background-color: inherit;
+
+  /*
+   background-color: inherit;
+  */
   overflow-y: auto;
   transition: transform 0.5s linear;
   will-change: transform;
@@ -32,7 +35,9 @@ const Wrapper = styled.div`
 `;
 
 const NavItems = styled.ul`
-  border-top: 1px solid #ebebeb;
+  border-top: 1px solid ${(p) => p.theme.nav.item.border.color};
+  margin: 0;
+  font-size: 1rem;
   ${(p) => p.theme.mq.md} {
     display: inline-flex;
     flex-direction: row;

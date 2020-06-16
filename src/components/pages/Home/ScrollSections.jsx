@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Section from '../../../Section';
+import Section from '../../Section';
 import About from './About';
 import Skills from './Skills';
 import Experience from './Experience';

@@ -1,13 +1,10 @@
-const scrollWidthOffset = (el) => {
-  let yOffset;
+export const getHeaderHeight = () => {
   const header = document.getElementById('header');
-  if (header) {
-    yOffset = header.getBoundingClientRect().height;
-  } else {
-    yOffset = 56;
-  }
+  return header ? header.getBoundingClientRect().height : 56; // 3.5rem, 16 * 3.5 = 56;
+};
 
-  const y = el.getBoundingClientRect().top + window.pageYOffset - yOffset;
+const scrollWidthOffset = (el) => {
+  const y = el.getBoundingClientRect().top + window.pageYOffset - getHeaderHeight();
   window.scrollTo({ top: y, behavior: 'smooth' });
 };
 

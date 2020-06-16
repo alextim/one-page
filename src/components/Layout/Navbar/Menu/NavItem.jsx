@@ -1,8 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { Link } from 'react-router-dom';
-// import { HashLink as Link } from 'react-router-hash-link';
-// import scrollWidthOffset from '../../../../helpers/scrollWithOffset';
+import { HashLink as Link } from 'react-router-hash-link';
+import scrollWidthOffset from '../../../../helpers/scrollWithOffset';
 
 const Wrapper = styled.li`
   display: block;
@@ -44,22 +43,24 @@ const NavItem = ({ no, title, to, targetId, isActive, onClick }) => {
     }
 
     &:focus {
-      background-color: ${(p) => p.theme.nav.item.bg.focus};
+      background-color: ${(p) => p.theme.nav.item.focus.bg};
     }
 
     &:hover {
-      background-color: ${(p) => p.theme.nav.item.bg.hover};
+      color: ${(p) => p.theme.nav.item.hover.color};
+      background-color: ${(p) => p.theme.nav.item.hover.bg};
     }
 
     &:active {
-      background-color: ${(p) => p.theme.nav.item.bg.active};
+      background-color: ${(p) => p.theme.nav.item.active.bg};
     }
 
     ${(p) => p.theme.mq.md} {
       width: auto;
       height: 100%;
       padding: 0.75rem 0.75rem;
-      box-shadow: ${(p) => isActive ? `0 -2px 0 ${p.theme.nav.item.shadow.active} inset` : 'unset'};
+      box-shadow: ${(p) =>
+        isActive ? `0 -2px 0 ${p.theme.nav.item.shadow.active} inset` : 'unset'};
     }
   `;
   return (
@@ -67,6 +68,7 @@ const NavItem = ({ no, title, to, targetId, isActive, onClick }) => {
       <Anchor
         to={targetId ? `/#${targetId}` : to}
         aria-label={`Go to ${title}`}
+        scroll={scrollWidthOffset}
         onClick={handleClick}
       >
         {title}

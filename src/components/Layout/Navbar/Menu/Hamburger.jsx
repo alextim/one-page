@@ -1,9 +1,10 @@
 import React from 'react';
 import styled from '@emotion/styled';
 
+/*   box-shadow: 0 5px 7px -6px ${(p) => p.theme.hamburger.shadow}; */
+
 const Wrap = styled.div`
   background-color: ${(p) => p.theme.hamburger.bg};
-  box-shadow: 0 5px 7px -6px ${(p) => p.theme.hamburger.shadow};
   height: 2.5rem;
   width: 2.5rem;
   cursor: pointer;

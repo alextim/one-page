@@ -1,38 +1,54 @@
 import mq from './mq';
-import colors from './colors';
+import { paletteDefault, paletteDark } from './colors';
 
 const baseTheme = {
   mq,
   isDark: false,
+  sizes: {
+    container: {
+      px: ['1rem', '1.5rem'],
+      w: {
+        min: 300,
+        max: 1400,
+      },
+    },
+  },
   colors: {
-    ...colors,
+    ...paletteDefault,
     navigation: {
       socialLink: '#78757a',
     },
-    text: colors.black,
-    bg: '#fcfcfc',
+    headings: paletteDefault.text.primary,
+    text: paletteDefault.text.primary,
+    bg: paletteDefault.bg.default,
   },
   header: {
-    color: '#202124',
-    bg: '#fff',
+    color: paletteDefault.text.primary,
+    bg: paletteDefault.common.white,
+    border: paletteDefault.divider,
   },
   navbar: {
     h: ['3rem', '3.5rem'],
   },
   hamburger: {
-    color: '#fff',
-    bg: '#005587',
-    shadow: '#000',
+    color: paletteDefault.text.primary,
+    bg: paletteDefault.common.white,
+    shadow: paletteDefault.common.black,
   },
   nav: {
     item: {
       border: {
         color: '#dadce0',
       },
-      bg: {
-        focus: 'rgba(32, 33, 36, 0.12)',
-        hover: 'rgba(32, 33, 36, 0.04)',
-        active: 'rgba(32, 33, 36, 0.16)',
+      focus: {
+        bg: 'rgba(32, 33, 36, 0.12)',
+      },
+      hover: {
+        color: paletteDefault.common.black,
+        bg: 'rgba(32, 33, 36, 0.04)',
+      },
+      active: {
+        bg: 'rgba(32, 33, 36, 0.16)',
       },
       shadow: {
         active: '#3740ff',
@@ -48,33 +64,54 @@ const baseTheme = {
     color: '#181716',
     bg: '#e6e6e6',
   },
+  form: {
+    error: {
+      color: 'crimson',
+    },
+    input: {
+      color: paletteDefault.text.secondary,
+      bg: paletteDefault.bg.paper,
+      border: {
+        color: 'rgb(226, 232, 240)',
+        focus: 'rgb(49, 130, 206)',
+        hover: 'rgb(203, 213, 224)',
+      },
+    },
+  },
 };
 
 const themeDark = {
   ...baseTheme,
   isDark: true,
   colors: {
-    ...baseTheme.colors,
-    text: colors.white,
-    bg: colors.black,
+    ...paletteDark,
+    headings: paletteDark.text.primary,
+    text: paletteDark.text.primary,
+    bg: paletteDark.bg.default,
   },
   header: {
-    color: '#fff',
-    bg: '#000',
+    color: paletteDark.text.primary,
+    bg: paletteDark.common.black,
+    border: paletteDark.common.black,
   },
   hamburger: {
-    color: 'red',
-    bg: '#005587',
-    shadow: '#000',
+    color: paletteDark.text.primary,
+    bg: paletteDark.common.black,
+    shadow: paletteDark.common.black,
   },
   nav: {
     ...baseTheme.nav,
     item: {
       ...baseTheme.nav.item,
-      bg: {
-        focus: 'rgba(132,133, 136, 0.88)',
-        hover: 'rgba(132, 133, 136, 0.96)',
-        active: 'rgba(132, 133, 136, 0.80)',
+      focus: {
+        bg: 'rgba(132,133, 136, 0.88)',
+      },
+      hover: {
+        color: paletteDark.common.white,
+        bg: 'rgba(132, 133, 136, 0.96)',
+      },
+      active: {
+        bg: 'rgba(132, 133, 136, 0.80)',
       },
     },
   },
@@ -82,6 +119,14 @@ const themeDark = {
     ...baseTheme.footer,
     color: '#181716',
     bg: '#e6e6e6',
+  },
+  form: {
+    ...baseTheme.form,
+    input: {
+      ...baseTheme.form.input,
+      color: '#b3b9c5',
+      bg: '#1e1e1e',
+    },
   },
 };
 

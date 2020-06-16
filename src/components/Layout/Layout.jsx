@@ -1,9 +1,14 @@
 import React from 'react';
+import styled from '@emotion/styled';
+
+import { ToastContainer } from '../../lib/react-tiny-toast';
 
 import SnackBar from '../SnackBar';
 import Header from './Header';
 import Navbar from './Navbar';
 import Footer from './Footer';
+import { menuData } from '../pages/Home';
+import Container from './Container';
 
 /**
  * https://flexbox.ninja/demos/holy-grail-layout/
@@ -25,14 +30,36 @@ import Footer from './Footer';
  * https://w3bits.com/labs/css-snowfall/
  *
  */
-const Layout = ({ menuData, children }) => (
-  <div className="main-content js-focus-visible">
+
+const InnerWrapper = styled(Container)`
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+  ${(p) => p.theme.mq.md} {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+`;
+
+const MAIN_CONTENT_ID = 'main-content';
+
+const Layout = ({ hero, title, children }) => (
+  <div
+    id={MAIN_CONTENT_ID}
+    className={`main-content ${hero ? 'js-with-hero ' : ''}js-focus-visible`}
+  >
+    <ToastContainer parentId={MAIN_CONTENT_ID} />
     <SnackBar />
     <Header>
       <Navbar menuData={menuData} />
     </Header>
 
-    <main>{children}</main>
+    <main>
+      {hero && hero}
+      <InnerWrapper>
+        {title && <h1>{title}</h1>}
+        {children}
+      </InnerWrapper>
+    </main>
 
     <Footer />
   </div>

@@ -4,6 +4,8 @@ import { BrowserRouter as Router, Switch, Route, useLocation } from 'react-route
 
 import * as ROUTES from './constants/routes';
 
+import { getHeaderHeight } from './helpers/scrollWithOffset';
+
 import {
   useCheckLocalStorageSchema,
   useDarkMode,
@@ -14,7 +16,7 @@ import { themeLight, themeDark } from './themes';
 import GlobalStyles from './components/GlobalStyles';
 import { ColorModeProvider, I18nProvider, SnackBarProvider } from './context';
 
-import Home from './components/pages/Home';
+import HomePage from './components/pages/Home';
 import Blog from './components/pages/Blog';
 import Privacy from './components/pages/Privacy';
 import Page404 from './components/pages/Page404';
@@ -24,15 +26,9 @@ import Page404 from './components/pages/Page404';
 const ScrollToPosOnMount = () => {
   const { hash } = useLocation();
   useEffect(() => {
-    let yOffset;
-    const header = document.getElementById('header');
-    if (header) {
-      yOffset = header.getBoundingClientRect().height;
-    } else {
-      yOffset = 56;
-    }
     let y = 0;
     if (hash) {
+      const yOffset = getHeaderHeight();
       const id = hash.substr(1);
       const el = document.getElementById(id);
       if (el) {
@@ -42,6 +38,11 @@ const ScrollToPosOnMount = () => {
     window.scrollTo({ top: y, behavior: 'smooth' });
   }, [hash]);
 
+  return null;
+};
+
+const adminRedirect = () => {
+  window.location = 'https://msn.com';
   return null;
 };
 
@@ -71,9 +72,10 @@ const App = () => {
             <Router>
               <ScrollToPosOnMount />
               <Switch>
-                <Route exact path={ROUTES.LANDING} component={Home} />
+                <Route exact path={ROUTES.HOME} component={HomePage} />
                 <Route exact path={ROUTES.PRIVACY} component={Privacy} />
                 <Route exact path={ROUTES.BLOG} component={Blog} />
+                <Route exact path={ROUTES.LOGIN} component={adminRedirect} />
                 <Route component={Page404} />
               </Switch>
             </Router>

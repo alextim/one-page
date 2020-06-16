@@ -8,7 +8,6 @@ import Hamburger from './Menu/Hamburger';
 import Logo from './Logo';
 import Menu from './Menu';
 import { ColorModeToggle, LocaleToggle } from '../../Toggles';
-
 /*
 const getWidth = () => window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
 

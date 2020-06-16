@@ -1,0 +1,107 @@
+#react-tiny-toast-main-container {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  margin: 0;
+  pointer-events: none;
+  right: 0;
+  z-index: 300;
+
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+.toast-container {
+  position: fixed;
+}
+.toast-container.top-center {
+  top: 0;
+  align-self: center;
+}
+.toast-container.top-left {
+  top: 0;
+  align-self: flex-start;
+}
+.toast-container.top-right {
+  top: 0;
+  align-self: flex-end;
+}
+.toast-container.bottom-center {
+  align-self: center;
+  bottom: 0;
+}
+.toast-container.bottom-left {
+  align-self: flex-start;
+  bottom: 0;
+}
+.toast-container.bottom-right {
+  align-self: flex-end;
+  bottom: 0;
+}
+@-webkit-keyframes toast-animation-from-top {
+  from {
+    top: 100px;
+    opacity: 0.8;
+  }
+  to {
+    top: 0px;
+    opacity: 1;
+  }
+}
+@-webkit-keyframes toast-animation-from-bottom {
+  from {
+    bottom: 100px;
+    opacity: 0.8;
+  }
+  to {
+    bottom: 0px;
+    opacity: 1;
+  }
+}
+@keyframes toast-animation-from-top {
+  from {
+    top: 100px;
+    opacity: 0.8;
+  }
+  to {
+    top: 0px;
+    opacity: 1;
+  }
+}
+@keyframes toast-animation-from-bottom {
+  from {
+    bottom: 100px;
+    opacity: 0.8;
+  }
+  to {
+    bottom: 0px;
+    opacity: 1;
+  }
+}
+.toast-item-animation-top {
+  animation: toast-animation-from-top 0.5s ease-in-out;
+}
+.toast-item-animation-bottom {
+  animation: toast-animation-from-bottom 0.5s ease-in-out;
+}
+.toast-item {
+  position: relative;
+  padding: 8px;
+  margin: 2px;
+  border-radius: 2px;
+  box-shadow: -4px -4px 16px -6px rgba(0,0,0,1);
+}
+.toast-item-success {
+  background-color: #28a745;
+}
+.toast-item-danger {
+  background-color: #dc3545;
+}
+.toast-item-default {
+  background-color: #6c757d;
+  color: #f8f9fa;
+}
+.toast-item-warning {
+  background-color: #ffc107;
+}

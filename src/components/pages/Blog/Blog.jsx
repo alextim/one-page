@@ -1,11 +1,6 @@
 import React from 'react';
 import Layout from '../../Layout';
-import { menuData } from '../Home/Sections';
 
-const Blog = () => (
-  <Layout menuData={menuData}>
-    <div>Blog</div>
-  </Layout>
-);
+const Blog = () => <Layout>Blog</Layout>;
 
 export default Blog;

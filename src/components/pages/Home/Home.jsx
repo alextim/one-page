@@ -1,9 +1,10 @@
 import React from 'react';
 import Layout from '../../Layout';
-import { ScrollSections, menuData } from './Sections';
+import Hero from './Hero';
+import ScrollSections from './ScrollSections';
 
 const Home = () => (
-  <Layout menuData={menuData}>
+  <Layout hero={<Hero />}>
     <ScrollSections />
   </Layout>
 );

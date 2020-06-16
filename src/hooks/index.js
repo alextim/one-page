@@ -8,6 +8,8 @@ import {
   useCheckLocalStorageSchema,
 } from './hooks';
 
+import useForm from './useForm';
+
 export {
   useLocalStorage,
   useScrollYPosition,
@@ -15,4 +17,5 @@ export {
   useDarkMode,
   useCookieWarned,
   useCheckLocalStorageSchema,
+  useForm,
 };
