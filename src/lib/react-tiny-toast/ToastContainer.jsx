@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 import React, { useEffect, useReducer, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { toastManager } from './toast';
@@ -86,6 +87,7 @@ const ToastContainer = ({ parentId }) => {
           </div>
         );
       });
+      // TODO key={index}
       return (
         <div key={index} className={`toast-container ${position}`}>
           {resultContent}
