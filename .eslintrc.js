@@ -42,6 +42,7 @@ module.exports = {
     'prettier/prettier': ['error', { endOfLine: 'auto' }],
     // Allowing ++ on numbers
     'no-plusplus': 'off',
+    'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
   },
   settings: {
     react: {

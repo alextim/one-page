@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 
-import { useLocale } from '../../../i18n';
+import { useTranslation } from 'react-i18next';
 
 const IconWrapper = styled.button`
   display: inline-flex;
@@ -61,15 +61,15 @@ const IconWrapper = styled.button`
 `;
 
 const LocaleToggle = () => {
-  const { locale, setLocale } = useLocale();
+  const { i18n } = useTranslation();
 
   const clickHandler = (e) => {
     e.preventDefault();
-    setLocale(locale === 'en' ? 'ru' : 'en');
+    i18n.changeLanguage(i18n.language === 'ru' ? 'en' : 'ru');
   };
   return (
     <IconWrapper type="button" onClick={clickHandler}>
-      {locale === 'en' ? 'EN' : 'RU'}
+      {i18n.language}
     </IconWrapper>
   );
 };

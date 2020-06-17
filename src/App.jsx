@@ -9,7 +9,6 @@ import { getHeaderHeight } from './helpers/scrollWithOffset';
 import {
   useCheckLocalStorageSchema,
   useDarkMode,
-  useSelectedLanguage,
   // useCookieWarned,
 } from './hooks';
 import { themeLight, themeDark } from './themes';
@@ -43,7 +42,7 @@ const ScrollToPosOnMount = () => {
 };
 
 const adminRedirect = () => {
-  window.location = 'https://msn.com';
+  window.location = ROUTES.ADMIN;
   return null;
 };
 
@@ -52,13 +51,12 @@ const App = () => {
   useCheckLocalStorageSchema();
   const [isDark, setIsDark] = useDarkMode();
   // const [isCookieWarned, setIsCookieWarned] = useCookieWarned();
-  const [selectedLanguage, setSelectedLanguage] = useSelectedLanguage();
   const [isCookieWarned, setIsCookieWarned] = useState(false);
 
   return (
     <ThemeProvider theme={isDark ? themeDark : themeLight}>
       <ColorModeProvider isDark={isDark} setIsDark={setIsDark}>
-        <I18nProvider locale={selectedLanguage} setLocale={setSelectedLanguage}>
+        <I18nProvider>
           <SnackBarProvider
             label="We serve cookies on this site to analyze traffic, remember your preferences, and optimize your experience."
             stacked

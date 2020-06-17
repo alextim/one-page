@@ -2,14 +2,11 @@ import { useEffect } from 'react';
 // https://github.com/huchenme/hacker-tab-extension/blob/master/src/helpers/github.js
 import useLocalStorage from './useLocalStorage';
 import {
-  KEY_SELECTED_CODE_LANGUAGE,
   KEY_SCHEMA_VERSION,
   KEY_DARK_MODE,
   KEY_COOKIE_WARNED,
   CURRENT_SCHEMA_VERSION,
 } from '../helpers/localStorage';
-
-export const useSelectedLanguage = () => useLocalStorage(KEY_SELECTED_CODE_LANGUAGE, 'en');
 
 export const useDarkMode = () => {
   const preferDarkQuery = '(prefers-color-scheme: dark)';
