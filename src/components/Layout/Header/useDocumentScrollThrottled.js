@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
  * https://github.com/lodash/babel-plugin-lodash
  *
  */
-import { throttle } from 'lodash';
+import throttle from 'lodash/throttle';
 
 const useDocumentScrollThrottled = (callback) => {
   const [, setScrollPosition] = useState(0);

@@ -1,10 +1,12 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import disableScroll from 'disable-scroll';
 
 import { ModalWrapper, ModalOverlay, ModalContent, StyledModalCloseButton } from './styled';
 
 const ESC_KEY = 27;
+
+let timer;
 
 const Modal = ({ children, isOpen = false, close, elementId = 'root' }) => {
   const ref = useRef(null);
@@ -43,51 +45,40 @@ const Modal = ({ children, isOpen = false, close, elementId = 'root' }) => {
 const useModal = (elementId = 'root', options = {}) => {
   const { onClose, preventScroll = true } = options;
   const [isOpen, setOpen] = useState(false);
-  const [closeTimer, setCloseTimer] = useState(null);
 
-  const closeWithoutTimeout = useCallback(() => {
+  const closeWithoutTimeout = () => {
     if (onClose) {
       onClose();
     }
     setOpen(false);
-    if (closeTimer) {
-      clearTimeout(closeTimer);
-      setCloseTimer(null);
+    if (timer) {
+      clearTimeout(timer);
+      timer = 0;
     }
     if (preventScroll) {
       disableScroll.off();
     }
-  }, [closeTimer, onClose, preventScroll]);
+  };
 
-  const close = useCallback(
-    (closeTimeoutMS = 0) => {
-      if (closeTimeoutMS === 0) {
-        closeWithoutTimeout();
-        return;
-      }
-      if (closeTimer) {
-        closeWithoutTimeout();
-        return;
-      }
-      setCloseTimer(setTimeout(closeWithoutTimeout, closeTimeoutMS));
-    },
-    [closeTimer, closeWithoutTimeout]
-  );
+  const close = (closeTimeoutMS = 0) => {
+    if (closeTimeoutMS === 0 || timer) {
+      closeWithoutTimeout();
+      return;
+    }
+    timer = setTimeout(closeWithoutTimeout, closeTimeoutMS);
+  };
 
-  const open = useCallback(() => {
+  const open = () => {
     setOpen(true);
     if (preventScroll) {
       disableScroll.on();
     }
-  }, [preventScroll]);
+  };
 
-  const ModalWrap = useCallback(
-    ({ children }) => (
-      <Modal isOpen={isOpen} close={close} elementId={elementId}>
-        {children}
-      </Modal>
-    ),
-    [isOpen, close, elementId]
+  const ModalWrap = ({ children }) => (
+    <Modal isOpen={isOpen} close={close} elementId={elementId}>
+      {children}
+    </Modal>
   );
 
   return [ModalWrap, open, close, isOpen];

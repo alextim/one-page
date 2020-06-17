@@ -84,7 +84,6 @@ const ContactForm = () => {
     setLoading(true);
     try {
       openModal();
-      console.warn(values);
       // await sendDataMock();
       return await sendData(values);
     } catch (err) {
@@ -137,9 +136,6 @@ const ContactForm = () => {
         />
         <Button type="submit" primary>
           Submit
-        </Button>
-        <Button secondary onClick={onSubmitForm}>
-          test
         </Button>
       </form>
     </>

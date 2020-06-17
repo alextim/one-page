@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 
-import { useLocale } from '../../../context';
+import { useLocale } from '../../../i18n';
 
 const IconWrapper = styled.button`
   display: inline-flex;

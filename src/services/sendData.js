@@ -46,8 +46,9 @@ const sendData = async (data) => {
       errText = res.statusText ? res.statusText : text || 'Network error';
       break;
   }
-
-  throw new Error(`${res.status}: ${errText}`);
+  console.warn('before throw');
+  console.warn(`${res.status.toString()}: ${errText}`);
+  throw new Error(`${res.status.toString()}: ${errText}`);
 };
 
 export default sendData;

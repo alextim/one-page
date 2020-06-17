@@ -14,7 +14,8 @@ import {
 } from './hooks';
 import { themeLight, themeDark } from './themes';
 import GlobalStyles from './components/GlobalStyles';
-import { ColorModeProvider, I18nProvider, SnackBarProvider } from './context';
+import { ColorModeProvider, SnackBarProvider } from './context';
+import { I18nProvider } from './i18n';
 
 import HomePage from './components/pages/Home';
 import Blog from './components/pages/Blog';

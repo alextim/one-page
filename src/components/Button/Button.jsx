@@ -119,6 +119,7 @@ const Button = ({ classes, type, style, as, primary, secondary, children, ...pro
   if (style) {
     styles.push(style);
   }
+
   return as === 'Link' ? (
     <Link css={styles} {...props}>
       {children}
