@@ -22,3 +22,10 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+.firebaserc
+/.firebase
+
+package-lock.json
+
+email-field-name.js
