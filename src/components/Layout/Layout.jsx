@@ -4,11 +4,11 @@ import styled from '@emotion/styled';
 import { ToastContainer } from '../../lib/react-tiny-toast';
 
 import SnackBar from '../SnackBar';
-import Header from './Header';
-import Navbar from './Navbar';
-import Footer from './Footer';
+import Header from '../Header';
+import Navbar from '../Navbar';
+import Footer from '../Footer';
 import { menuData } from '../pages/Home';
-import Container from './Container';
+import Container from '../Container';
 
 /**
  * https://flexbox.ninja/demos/holy-grail-layout/

@@ -1,8 +1,9 @@
 /* eslint-disable indent */
 import React from 'react';
 import styled from '@emotion/styled';
-import { HashLink as Link } from 'react-router-hash-link';
-import scrollWidthOffset from '../../../../helpers/scrollWithOffset';
+
+import Link from '../../LocalizedLink';
+import scrollWidthOffset from '../../../helpers/scrollWithOffset';
 
 const Wrapper = styled.li`
   display: block;
@@ -66,12 +67,7 @@ const NavItem = ({ no, title, to, targetId, isActive, onClick }) => {
   `;
   return (
     <Wrapper>
-      <Anchor
-        to={targetId ? `/#${targetId}` : to}
-        aria-label={`Go to ${title}`}
-        scroll={scrollWidthOffset}
-        onClick={handleClick}
-      >
+      <Anchor to={targetId ? `/#${targetId}` : to} scroll={scrollWidthOffset} onClick={handleClick}>
         {title}
       </Anchor>
     </Wrapper>

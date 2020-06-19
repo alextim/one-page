@@ -2,7 +2,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core';
-import { Link } from 'react-router-dom';
+import Link from '../LocalizedLink';
 
 const styleButton = css`
   display: inline-flex;

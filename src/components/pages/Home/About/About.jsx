@@ -5,10 +5,6 @@ const About = () => {
   const { t } = useTranslation();
   return (
     <div>
-      home.welcome={t('home.welcome')} <br />
-      welcome={t('welcome')} <br />
-      home.test={t('home.test')} <br />
-      common.test={t('common.test')} <br />
       test={t('test')} <br />
       Lorem ipsum dolor sit amet, qui no mutat facilis concludaturque, duo summo detraxit ne, no eum
       legendos invenire. Scripta postulant sea eu. Ubique ignota mel in, aperiri epicuri eam no. Sit

@@ -4,17 +4,27 @@ import { initReactI18next } from 'react-i18next';
 import Backend from 'i18next-http-backend';
 import LanguageDetector from 'i18next-browser-languagedetector';
 
+export const defaultLocale = 'en';
+export const secondLocale = 'ru';
+
+export const locales = {
+  [defaultLocale]: 'English',
+  [secondLocale]: 'Русский',
+};
+
+export const supportedLocale = (locale) => !!locales[locale];
+
 i18n
   .use(Backend)
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
     // lng: 'en',
-    fallbackLng: 'en',
-    whitelist: ['en', 'ru'],
+    fallbackLng: defaultLocale,
+    whitelist: Object.keys(locales),
     load: 'languageOnly',
     debug: process.env.NODE_ENV !== 'production',
-    keySeparator: false,
+    // keySeparator: true,
     interpolation: {
       escapeValue: false, // not needed for react!!
       formatSeparator: ',',

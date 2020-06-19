@@ -1,2 +1,18 @@
 {
+  "test": "Это тест",
+  "contact-form": {
+    "name": "Имя",
+    "message": "Сообщение",
+    "required": "обязательно!",
+    "send": "Отправить",
+    "onlysymbols": "Допускаются только символы и пробел",
+    "invalidemail": "Неверный E-mail."
+  },
+  "nav": {
+    "about": "Обо мне",
+    "skills": "Навыки",
+    "experience": "Опыт",
+    "contact": "Контакты",
+    "blog": "Блог"
+  }
 }

@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import { Global, css } from '@emotion/core';
 import { useTheme } from 'emotion-theming';
 import { useLocation } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 import NavItem from './NavItem';
 
@@ -38,6 +39,7 @@ const NavItems = styled.ul`
   border-top: 1px solid ${(p) => p.theme.nav.item.border.color};
   margin: 0;
   font-size: 1rem;
+
   ${(p) => p.theme.mq.md} {
     display: inline-flex;
     flex-direction: row;
@@ -49,17 +51,19 @@ const NavItems = styled.ul`
 `;
 
 const Menu = ({ menuData, isMenuOpen, setIsMenuOpen }) => {
-  const { pathname, hash } = useLocation();
   const [activeItem, setActiveItem] = useState(null);
+  const { pathname, hash } = useLocation();
+  const { t } = useTranslation();
+  const theme = useTheme();
 
   useEffect(() => {
-    const targetId = hash ? hash.substr(1) : '';
+    const targetId = hash ? hash.substring(1) : '';
     for (let i = 0; i < menuData.length; i++) {
       if (targetId === menuData[i].targetId) {
         setActiveItem(i);
         return;
       }
-      if (pathname === menuData[i].to) {
+      if (pathname.indexOf(menuData[i].to) !== -1) {
         setActiveItem(i);
         return;
       }
@@ -67,7 +71,6 @@ const Menu = ({ menuData, isMenuOpen, setIsMenuOpen }) => {
     setActiveItem(null);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname, hash]);
-  const theme = useTheme();
 
   const onClick = () => {
     if (isMenuOpen) {
@@ -105,7 +108,7 @@ const Menu = ({ menuData, isMenuOpen, setIsMenuOpen }) => {
               key={i}
               no={i}
               isActive={i === activeItem}
-              title={title}
+              title={t(title)}
               to={to}
               targetId={targetId}
               onClick={onClick}

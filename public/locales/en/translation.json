@@ -1,2 +1,18 @@
 {
+  "test": "it is a test",
+  "contact-form": {
+    "name": "Name",
+    "message": "Message",
+    "required": "is required!",
+    "send": "Send",
+    "onlysymbols": "Only symbols and space allowed.",
+    "invalidemail": "Invalid E-mail."
+  },
+  "nav": {
+    "about": "About",
+    "skills": "Skills",
+    "experience": "Experience",
+    "contact": "Contact",
+    "blog": "Blog"
+  }
 }

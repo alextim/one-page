@@ -2,12 +2,12 @@ import React, { useState, useRef, useMemo } from 'react';
 import { css, Global } from '@emotion/core';
 import { useTheme } from 'emotion-theming';
 
-import { useScrollYPosition } from '../../../hooks';
+import { useScrollYPosition } from '../../hooks';
 import { Wrapper, Left, Right } from './styled';
 import Hamburger from './Menu/Hamburger';
 import Logo from './Logo';
 import Menu from './Menu';
-import { ColorModeToggle, LocaleToggle } from '../../Toggles';
+import { ColorModeToggle, LocaleToggle } from '../Toggles';
 /*
 const getWidth = () => window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
 

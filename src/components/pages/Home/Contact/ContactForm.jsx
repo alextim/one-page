@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import * as EmailValidator from 'email-validator';
+import { useTranslation } from 'react-i18next';
 
 import EMAIL_FIELD from './email-field-name';
 
@@ -18,40 +19,6 @@ const EMAIL_MAX_LENGTH = 254;
 const MESSAGE_MIN_LENGTH = 2;
 const MESSAGE_MAX_LENGTH = 256;
 
-const validationSchema = {
-  email: {},
-  name: {
-    required: 'Name is required!',
-    validate: (value) =>
-      value.length >= NAME_MIN_LENGTH && value.length <= NAME_MAX_LENGTH
-        ? ''
-        : `Name length should be between ${NAME_MIN_LENGTH} and ${NAME_MAX_LENGTH}.`,
-    pattern: {
-      value: /^([a-zA-Z]+\s)*[a-zA-Z]+$/,
-      message: 'Only symbols and space allowed',
-    },
-  },
-  [EMAIL_FIELD]: {
-    required: true,
-    validate: (value) => {
-      if (value.length < EMAIL_MIN_LENGTH || value.length > EMAIL_MAX_LENGTH) {
-        return `Name length should be between ${EMAIL_MIN_LENGTH} and ${EMAIL_MAX_LENGTH}.`;
-      }
-      if (!EmailValidator.validate(value)) {
-        return 'Invalid E-mail.';
-      }
-      return '';
-    },
-  },
-  message: {
-    required: true,
-    validate: (value) =>
-      value.length >= MESSAGE_MIN_LENGTH && value.length <= MESSAGE_MAX_LENGTH
-        ? ''
-        : `Message length should be between ${MESSAGE_MIN_LENGTH} and ${MESSAGE_MAX_LENGTH}.`,
-  },
-};
-
 /*
 let timer;
 const timeout = (ms) =>
@@ -67,8 +34,43 @@ async function sendDataMock() {
 */
 
 const ContactForm = () => {
+  const { t } = useTranslation();
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
+
+  const validationSchema = {
+    email: {},
+    name: {
+      required: `${t('contact-form.name')} ${t('contact-form.reqired')}`,
+      validate: (value) =>
+        value.length >= NAME_MIN_LENGTH && value.length <= NAME_MAX_LENGTH
+          ? ''
+          : `Name length should be between ${NAME_MIN_LENGTH} and ${NAME_MAX_LENGTH}.`,
+      pattern: {
+        value: /^([a-zA-Z]+\s)*[a-zA-Z]+$/,
+        message: t('form.onlysymbols'),
+      },
+    },
+    [EMAIL_FIELD]: {
+      required: `E-mail ${t('contact-form.reqired')}`,
+      validate: (value) => {
+        if (value.length < EMAIL_MIN_LENGTH || value.length > EMAIL_MAX_LENGTH) {
+          return `E-mail length should be between ${EMAIL_MIN_LENGTH} and ${EMAIL_MAX_LENGTH}.`;
+        }
+        if (!EmailValidator.validate(value)) {
+          return t('form.ivalidemail');
+        }
+        return '';
+      },
+    },
+    message: {
+      required: true,
+      validate: (value) =>
+        value.length >= MESSAGE_MIN_LENGTH && value.length <= MESSAGE_MAX_LENGTH
+          ? ''
+          : `Message length should be between ${MESSAGE_MIN_LENGTH} and ${MESSAGE_MAX_LENGTH}.`,
+    },
+  };
 
   const onClose = () => {
     if (loading) {
@@ -110,7 +112,7 @@ const ContactForm = () => {
       <form onSubmit={handleOnSubmit} noValidate>
         <HoneyPotInput value={values.email} onChange={handleOnChange} />
         <InputControl
-          label="Name"
+          label={t('contact-form.name')}
           name="name"
           required={validationSchema.name.required}
           value={values.name}
@@ -127,7 +129,7 @@ const ContactForm = () => {
           onChange={handleOnChange}
         />
         <TextAreaControl
-          label="Message"
+          label={t('contact-form.message')}
           name="message"
           required={validationSchema.message.required}
           value={values.message}
@@ -135,7 +137,7 @@ const ContactForm = () => {
           onChange={handleOnChange}
         />
         <Button type="submit" primary>
-          Submit
+          {t('contact-form.send')}
         </Button>
       </form>
     </>
