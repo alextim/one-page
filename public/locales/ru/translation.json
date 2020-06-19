@@ -5,6 +5,9 @@
     "message": "Сообщение",
     "required": "обязательно!",
     "send": "Отправить",
+    "yourname": "Ваше имя",
+    "youremail": "Ваш e-mail",
+    "yourmessage": "Ваше сообщение",
     "onlysymbols": "Допускаются только символы и пробел",
     "invalidemail": "Неверный E-mail."
   },

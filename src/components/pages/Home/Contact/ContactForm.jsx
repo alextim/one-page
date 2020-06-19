@@ -48,7 +48,7 @@ const ContactForm = () => {
           : `Name length should be between ${NAME_MIN_LENGTH} and ${NAME_MAX_LENGTH}.`,
       pattern: {
         value: /^([a-zA-Z]+\s)*[a-zA-Z]+$/,
-        message: t('form.onlysymbols'),
+        message: t('contact-form.onlysymbols'),
       },
     },
     [EMAIL_FIELD]: {
@@ -58,7 +58,7 @@ const ContactForm = () => {
           return `E-mail length should be between ${EMAIL_MIN_LENGTH} and ${EMAIL_MAX_LENGTH}.`;
         }
         if (!EmailValidator.validate(value)) {
-          return t('form.ivalidemail');
+          return t('contact-form.ivalidemail');
         }
         return '';
       },
@@ -115,6 +115,7 @@ const ContactForm = () => {
           label={t('contact-form.name')}
           name="name"
           required={validationSchema.name.required}
+          placeholder={t('contact-form.yourname')}
           value={values.name}
           error={errors.name}
           onChange={handleOnChange}
@@ -124,6 +125,7 @@ const ContactForm = () => {
           name={EMAIL_FIELD}
           type="email"
           required={validationSchema[EMAIL_FIELD].required}
+          placeholder={t('contact-form.youremail')}
           value={values[EMAIL_FIELD]}
           error={errors[EMAIL_FIELD]}
           onChange={handleOnChange}
@@ -132,6 +134,7 @@ const ContactForm = () => {
           label={t('contact-form.message')}
           name="message"
           required={validationSchema.message.required}
+          placeholder={t('contact-form.yourmessage')}
           value={values.message}
           error={errors.message}
           onChange={handleOnChange}

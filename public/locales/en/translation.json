@@ -5,6 +5,9 @@
     "message": "Message",
     "required": "is required!",
     "send": "Send",
+    "yourname": "Your name",
+    "youremail": "Your e-mail",
+    "yourmessage": "Your message",
     "onlysymbols": "Only symbols and space allowed.",
     "invalidemail": "Invalid E-mail."
   },

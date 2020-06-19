@@ -1,47 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import { ThemeProvider } from 'emotion-theming';
+import React from 'react';
 import { BrowserRouter as Router, Switch, Route, Redirect, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
-import * as ROUTES from './constants/routes';
-import localizeTo from './helpers/localizeTo';
+import { defaultLocale, secondLocale, supportedLocale } from '../../i18n';
 
-import { getHeaderHeight } from './helpers/scrollWithOffset';
+import localizeTo from '../../helpers/localizeTo';
+import * as ROUTES from '../../constants/routes';
+import ScrollToPosOnMount from './ScrollToPosOnMount';
 
-import {
-  useCheckLocalStorageSchema,
-  useDarkMode,
-  // useCookieWarned,
-} from './hooks';
-import { themeLight, themeDark } from './themes';
-import GlobalStyles from './components/GlobalStyles';
-import { ColorModeProvider, SnackBarProvider } from './context';
-import { I18nProvider, defaultLocale, secondLocale, supportedLocale } from './i18n';
-
-import HomePage from './components/pages/Home';
-import Blog from './components/pages/Blog';
-import Privacy from './components/pages/Privacy';
-import NotFound from './components/pages/NotFound';
-
-// http://weaintplastic.com/
-
-const ScrollToPosOnMount = () => {
-  const { hash } = useLocation();
-  useEffect(() => {
-    let y = 0;
-    if (hash) {
-      const id = hash.substr(1);
-      const el = document.getElementById(id);
-      if (el) {
-        const yOffset = getHeaderHeight();
-        y = el.getBoundingClientRect().top + window.pageYOffset - yOffset;
-      }
-    }
-    window.scrollTo({ top: y, behavior: 'smooth' });
-  }, [hash]);
-
-  return null;
-};
+import HomePage from '../pages/Home';
+import Blog from '../pages/Blog';
+import Privacy from '../pages/Privacy';
+import NotFound from '../pages/NotFound';
 
 const AdminRedirect = () => {
   window.location = ROUTES.ADMIN;
@@ -125,37 +95,13 @@ routeTemplates.forEach(({ path, component, exact, localize }) => {
   }
 });
 
-const App = () => {
-  // Clear local storage is schema version not match
-  useCheckLocalStorageSchema();
-  const [isDark, setIsDark] = useDarkMode();
-  // const [isCookieWarned, setIsCookieWarned] = useCookieWarned();
-  const [isCookieWarned, setIsCookieWarned] = useState(false);
-
+const AppRouter = () => {
   return (
-    <ThemeProvider theme={isDark ? themeDark : themeLight}>
-      <ColorModeProvider isDark={isDark} setIsDark={setIsDark}>
-        <I18nProvider>
-          <SnackBarProvider
-            label="We serve cookies on this site to analyze traffic, remember your preferences, and optimize your experience."
-            stacked
-            action={{
-              url: '/privacy',
-              title: 'More details',
-            }}
-            open={!isCookieWarned}
-            onClose={() => setIsCookieWarned(true)}
-          >
-            <GlobalStyles />
-            <Router>
-              <ScrollToPosOnMount />
-              <Switch>{routes.map((route) => route)}</Switch>
-            </Router>
-          </SnackBarProvider>
-        </I18nProvider>
-      </ColorModeProvider>
-    </ThemeProvider>
+    <Router>
+      <ScrollToPosOnMount />
+      <Switch>{routes.map((route) => route)}</Switch>
+    </Router>
   );
 };
 
-export default App;
+export default AppRouter;
