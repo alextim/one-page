@@ -6,6 +6,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { defaultLocale, secondLocale } from '../../../i18n';
 
 import localizeTo from '../../../helpers/localizeTo';
+// import { scrollToPos } from '../../../helpers/scrollWithOffset';
 
 const IconWrapper = styled.button`
   font-weight: ${(p) => (p.active ? 700 : 400)};
@@ -34,7 +35,8 @@ const LocaleToggle = () => {
       return;
     }
 
-    i18n.changeLanguage(lang);
+    // i18n.changeLanguage(lang);
+    // scrollToPos(hash);
 
     let to;
     if (prevLanguage === defaultLocale) {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { BrowserRouter as Router, Switch, Route, Redirect, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
@@ -9,9 +9,11 @@ import * as ROUTES from '../../constants/routes';
 import ScrollToPosOnMount from './ScrollToPosOnMount';
 
 import HomePage from '../pages/Home';
-import Blog from '../pages/Blog';
-import Privacy from '../pages/Privacy';
-import NotFound from '../pages/NotFound';
+
+const Blog = React.lazy(() => import('../pages/Blog/index.js'));
+const NotFound = React.lazy(() => import('../pages/NotFound/index.js'));
+const PrivacyEn = React.lazy(() => import('../pages/Privacy/en/index.jsx'));
+const PrivacyRu = React.lazy(() => import('../pages/Privacy/ru/index.jsx'));
 
 const AdminRedirect = () => {
   window.location = ROUTES.ADMIN;
@@ -72,15 +74,22 @@ const BlogRoute = ({ match }) => {
 const PrivacyRoute = ({ match }) => {
   const { i18n } = useTranslation();
   const result = otherRoutes(ROUTES.PRIVACY, match, i18n);
-  return result || <Privacy />;
+  if (result) {
+    return result;
+  }
+  return (
+    <Suspense fallback={<div>loading...</div>}>
+      {i18n.language === secondLocale ? <PrivacyRu /> : <PrivacyEn />}
+    </Suspense>
+  );
 };
 
 const routeTemplates = [
-  { path: ROUTES.ADMIN, component: AdminRedirect, exact: true, localize: false },
-  { path: ROUTES.HOME, component: HomeRoute, exact: true, localize: true },
-  { path: ROUTES.BLOG, component: BlogRoute, exact: true, localize: true },
-  { path: ROUTES.PRIVACY, component: PrivacyRoute, exact: true, localize: true },
-  { path: undefined, component: NotFound, exact: undefined, localize: false },
+  { path: ROUTES.ADMIN, localize: false, exact: true, component: AdminRedirect },
+  { path: ROUTES.HOME, localize: true, exact: true, component: HomeRoute },
+  { path: ROUTES.BLOG, localize: true, exact: true, component: BlogRoute },
+  { path: ROUTES.PRIVACY, localize: true, exact: true, component: PrivacyRoute },
+  { path: undefined, localize: false, exact: undefined, component: NotFound },
 ];
 
 const routes = [];

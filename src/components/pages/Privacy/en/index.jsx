@@ -1,8 +1,16 @@
 import React from 'react';
-import Layout from '../../Layout';
+
+import Layout from '../../../Layout';
+import Seo from '../../../Seo';
+
+const title = 'Privacy Policy';
+const metaTitle = 'Privacy Policy';
+const metaDescription = 'Privacy Policy for our site';
 
 const Privacy = () => (
   <Layout>
+    <Seo title={metaTitle} desciption={metaDescription} />
+    <h1>{title}</h1>
     <div>Start</div>
     Lorem ipsum dolor sit amet, qui no mutat facilis concludaturque, duo summo detraxit ne, no eum
     legendos invenire. Scripta postulant sea eu. Ubique ignota mel in, aperiri epicuri eam no. Sit

@@ -24,7 +24,9 @@ yarn-debug.log*
 yarn-error.log*
 
 .firebaserc
-/.firebase
+.firebase
+
+/src/images/hero/*.*
 
 package-lock.json
 

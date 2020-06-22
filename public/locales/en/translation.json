@@ -1,15 +1,43 @@
 {
   "test": "it is a test",
-  "contact-form": {
+  "site": {
+    "title": "This is a site",
+    "description": "It's a site description",
+    "metatitle": "This is a site meta",
+    "metadescription": "It's a site description meta"
+  },
+  "page-not-found": "Sorry, we couldn't find that page.",
+  "form": {
+    "send": "Send",
+    "pls-wait": "Please, wait...",
+    "cancel": "Cancel",
+    "error": "Error",
+    "sending": "Sending",
+    "succes": "Success"
+  },
+  "validation": {
+    "required": "{{name}} is required.",
+    "length": "{{name}} length shold be between {{min}} and {{max}}.",
+    "only-symbols": "Only symbols and space allowed.",
+    "invalid": "Invalid {{name}}."
+  },
+  "error": {
+    "400": "400: Bad data",
+    "401": "401 Unauthorized",
+    "403": "403: Forbidden",
+    "405": "405: Method Not Allowed",
+    "network": "Network error"
+  },
+  "cf": {
     "name": "Name",
     "message": "Message",
-    "required": "is required!",
-    "send": "Send",
-    "yourname": "Your name",
-    "youremail": "Your e-mail",
-    "yourmessage": "Your message",
-    "onlysymbols": "Only symbols and space allowed.",
-    "invalidemail": "Invalid E-mail."
+    "your-name": "Your name",
+    "your-email": "Your e-mail",
+    "your-message": "Your message",
+    "sorry": "Sorry. Error happened while your message sending.",
+    "try-later": "Please, try again later or reach us in another way.",
+    "thanks": "Thank you for your message!",
+    "we-will-response": "We will response you in a nearest time."
   },
   "nav": {
     "about": "About",

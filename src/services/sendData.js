@@ -22,15 +22,16 @@ const sendData = async (data) => {
   console.warn(res);
 
   const text = await res.text();
-  console.warn(text);
+  console.error(text);
   if (!text) {
     try {
       const json = await res.json();
-      console.warn(json);
+      console.error(json);
       // eslint-disable-next-line no-empty
     } catch {}
   }
-
+  throw new Error(res.status.toString());
+  /*
   let errText = '';
   switch (res.status) {
     case 400:
@@ -46,9 +47,9 @@ const sendData = async (data) => {
       errText = res.statusText ? res.statusText : text || 'Network error';
       break;
   }
-  console.warn('before throw');
-  console.warn(`${res.status.toString()}: ${errText}`);
+
   throw new Error(`${res.status.toString()}: ${errText}`);
+  */
 };
 
 export default sendData;

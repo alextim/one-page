@@ -34,41 +34,63 @@ async function sendDataMock() {
 */
 
 const ContactForm = () => {
-  const { t } = useTranslation();
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
+  const { t } = useTranslation();
+
+  const validateName = (value) => {
+    if (value.length >= NAME_MIN_LENGTH && value.length <= NAME_MAX_LENGTH) {
+      return '';
+    }
+    return t('validation.length', {
+      name: t('cf.name'),
+      min: NAME_MIN_LENGTH,
+      max: NAME_MAX_LENGTH,
+    });
+  };
+
+  const validateEmail = (value) => {
+    if (value.length < EMAIL_MIN_LENGTH || value.length > EMAIL_MAX_LENGTH) {
+      return t('validation.length', {
+        name: 'E-mail',
+        min: EMAIL_MIN_LENGTH,
+        max: EMAIL_MAX_LENGTH,
+      });
+    }
+    if (!EmailValidator.validate(value)) {
+      return t('validation.invalid', { name: 'E-mail' });
+    }
+    return '';
+  };
+
+  const validateMessage = (value) => {
+    if (value.length >= MESSAGE_MIN_LENGTH && value.length <= MESSAGE_MAX_LENGTH) {
+      return '';
+    }
+    return t('validation.length', {
+      name: t('cf.message'),
+      min: MESSAGE_MIN_LENGTH,
+      max: MESSAGE_MAX_LENGTH,
+    });
+  };
 
   const validationSchema = {
     email: {},
     name: {
-      required: `${t('contact-form.name')} ${t('contact-form.reqired')}`,
-      validate: (value) =>
-        value.length >= NAME_MIN_LENGTH && value.length <= NAME_MAX_LENGTH
-          ? ''
-          : `Name length should be between ${NAME_MIN_LENGTH} and ${NAME_MAX_LENGTH}.`,
+      required: t('validation.required', { name: t('cf.name') }),
+      validate: validateName,
       pattern: {
         value: /^([a-zA-Z]+\s)*[a-zA-Z]+$/,
-        message: t('contact-form.onlysymbols'),
+        message: t('validation.only-symbols'),
       },
     },
     [EMAIL_FIELD]: {
-      required: `E-mail ${t('contact-form.reqired')}`,
-      validate: (value) => {
-        if (value.length < EMAIL_MIN_LENGTH || value.length > EMAIL_MAX_LENGTH) {
-          return `E-mail length should be between ${EMAIL_MIN_LENGTH} and ${EMAIL_MAX_LENGTH}.`;
-        }
-        if (!EmailValidator.validate(value)) {
-          return t('contact-form.ivalidemail');
-        }
-        return '';
-      },
+      required: t('validation.required', { name: 'E-mail' }),
+      validate: validateEmail,
     },
     message: {
-      required: true,
-      validate: (value) =>
-        value.length >= MESSAGE_MIN_LENGTH && value.length <= MESSAGE_MAX_LENGTH
-          ? ''
-          : `Message length should be between ${MESSAGE_MIN_LENGTH} and ${MESSAGE_MAX_LENGTH}.`,
+      required: t('validation.required', { name: t('cf.message') }),
+      validate: validateMessage,
     },
   };
 
@@ -81,6 +103,18 @@ const ContactForm = () => {
 
   const [Modal, openModal, closeModal] = useModal('root', { onClose });
 
+  const getErrorTranslation = (err) => {
+    switch (parseInt(err, 10)) {
+      case 400:
+      case 401:
+      case 403:
+      case 405:
+        return t(`error.${err}`);
+      default:
+        return t('error.network');
+    }
+  };
+
   const onSubmitForm = async (values) => {
     setError('');
     setLoading(true);
@@ -90,7 +124,7 @@ const ContactForm = () => {
       return await sendData(values);
     } catch (err) {
       // clearTimeout(timer);
-      setError(err.message);
+      setError(getErrorTranslation(err.message));
       return false;
     } finally {
       setLoading(false);
@@ -112,10 +146,10 @@ const ContactForm = () => {
       <form onSubmit={handleOnSubmit} noValidate>
         <HoneyPotInput value={values.email} onChange={handleOnChange} />
         <InputControl
-          label={t('contact-form.name')}
+          label={t('cf.name')}
           name="name"
           required={validationSchema.name.required}
-          placeholder={t('contact-form.yourname')}
+          placeholder={t('cf.your-name')}
           value={values.name}
           error={errors.name}
           onChange={handleOnChange}
@@ -125,22 +159,22 @@ const ContactForm = () => {
           name={EMAIL_FIELD}
           type="email"
           required={validationSchema[EMAIL_FIELD].required}
-          placeholder={t('contact-form.youremail')}
+          placeholder={t('cf.your-email')}
           value={values[EMAIL_FIELD]}
           error={errors[EMAIL_FIELD]}
           onChange={handleOnChange}
         />
         <TextAreaControl
-          label={t('contact-form.message')}
+          label={t('cf.message')}
           name="message"
           required={validationSchema.message.required}
-          placeholder={t('contact-form.yourmessage')}
+          placeholder={t('cf.your-message')}
           value={values.message}
           error={errors.message}
           onChange={handleOnChange}
         />
         <Button type="submit" primary>
-          {t('contact-form.send')}
+          {t('form.send')}
         </Button>
       </form>
     </>

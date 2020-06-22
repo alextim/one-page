@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import Spinner from '../../../Spinner';
 import Button from '../../../Button';
@@ -6,17 +7,19 @@ import Message from '../../../Message';
 import { ModalHeader, ModalFooter, ModalBody } from '../../../Modal';
 
 const ModalContent = ({ loading, error, handleButtonClick }) => {
+  const { t } = useTranslation();
+
   if (error) {
     return (
       <>
-        <ModalHeader>Error</ModalHeader>
+        <ModalHeader>{t('form.error')}</ModalHeader>
         <ModalBody>
           <Message type="error">
             <b>{error}</b>
             <p>
-              Sorry. Error happened while your message sending.
+              {t('cf.sorry')}
               <br />
-              Please, try again later or reach us in another way.
+              {t('cf.try-later')}
             </p>
           </Message>
         </ModalBody>
@@ -26,14 +29,14 @@ const ModalContent = ({ loading, error, handleButtonClick }) => {
   if (loading) {
     return (
       <>
-        <ModalHeader>Sending</ModalHeader>
+        <ModalHeader>{t('form.sending')}</ModalHeader>
         <ModalBody>
-          <p>Please, wait...</p>
+          <p>{t('form.pls-wait')}</p>
         </ModalBody>
         <ModalFooter justify="center">
           <Spinner width={2} />
           <Button onClick={handleButtonClick} primary>
-            Cancel
+            {t('form.cancel')}
           </Button>
         </ModalFooter>
       </>
@@ -41,11 +44,11 @@ const ModalContent = ({ loading, error, handleButtonClick }) => {
   }
   return (
     <>
-      <ModalHeader>Success</ModalHeader>
+      <ModalHeader>{t('form.succes')}</ModalHeader>
       <ModalBody>
         <Message type="success">
-          <p>Thank you for your message!</p>
-          <p>We will response you in a nearest time.</p>
+          <p>{t('cf.thanks')}</p>
+          <p>{t('cf.we-will-response')}</p>
         </Message>
       </ModalBody>
     </>
