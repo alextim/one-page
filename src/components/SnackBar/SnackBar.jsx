@@ -3,7 +3,6 @@ import { Global, css, jsx } from '@emotion/core';
 import styled from '@emotion/styled';
 
 import Button from '../Button';
-import { useSnackBar } from '../../context';
 
 const Container = styled.div`
   display: block;
@@ -75,8 +74,7 @@ const styleAction = css`
   }
 `;
 
-const SnackBar = () => {
-  const { label, action, open, stacked, onClose } = useSnackBar();
+const SnackBar = ({ label, action, open, stacked, onClose }) => {
   return (
     <Container>
       <Global

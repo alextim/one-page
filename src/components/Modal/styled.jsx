@@ -41,8 +41,8 @@ const CloseButton = styled.button`
     opacity: 1;
   }
 
-  &:before,
-  &:after {
+  &::before,
+  &::after {
     content: '';
     position: absolute;
     top: 0;
@@ -52,11 +52,11 @@ const CloseButton = styled.button`
     background-color: #333;
   }
 
-  &:before {
+  &::before {
     transform: rotate(45deg);
   }
 
-  &:after {
+  &::after {
     transform: rotate(-45deg);
   }
 `;
@@ -82,8 +82,8 @@ export const ModalContent = styled.div`
   top: 0;
   margin: 3.75rem auto;
   background-color: rgb(255, 255, 255);
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 7px 14px 0px, rgba(0, 0, 0, 0.07) 0px 3px 6px 0px;
-  outline: 0px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0 7px 14px 0, rgba(0, 0, 0, 0.07) 0 3px 6px 0;
+  outline: 0;
   z-index: 1400;
 `;
 

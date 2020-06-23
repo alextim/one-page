@@ -8,7 +8,6 @@ const Wrapper = styled.section`
       margin-top: 4.5rem;
     }
   }
-}
 `;
 
 // HOC

@@ -1,7 +1,8 @@
+/* eslint-disable no-alert */
 import React from 'react';
 import styled from '@emotion/styled';
 
-import { ToastContainer } from '../../lib/react-tiny-toast';
+import { ToastContainer, toast } from '../../lib/react-tiny-toast';
 
 import SnackBar from '../SnackBar';
 import Header from '../Header';
@@ -9,6 +10,8 @@ import Navbar from '../Navbar';
 import Footer from '../Footer';
 import { menuData } from '../pages/Home';
 import Container from '../Container';
+
+import useCookieWarningToast from './useCookieWarningToast';
 
 /**
  * https://flexbox.ninja/demos/holy-grail-layout/
@@ -39,30 +42,49 @@ const InnerWrapper = styled(Container)`
     margin-bottom: 2rem;
   }
 `;
-
+/*
+            label="We serve cookies on this site to analyze traffic, remember your preferences, and optimize your experience."
+            stacked
+            action={{
+              url: '/privacy',
+              title: 'More details',
+            }}
+*/
 const MAIN_CONTENT_ID = 'main-content';
 
-const Layout = ({ hero, title, children }) => (
-  <div
-    id={MAIN_CONTENT_ID}
-    className={`main-content ${hero ? 'js-with-hero ' : ''}js-focus-visible`}
-  >
-    <ToastContainer parentId={MAIN_CONTENT_ID} />
-    <SnackBar />
-    <Header>
-      <Navbar menuData={menuData} />
-    </Header>
+const Layout = ({ hero, title, children }) => {
+  useCookieWarningToast();
 
-    <main>
-      {hero && hero}
-      <InnerWrapper>
-        {title && <h1>{title}</h1>}
-        {children}
-      </InnerWrapper>
-    </main>
+  return (
+    <div
+      id={MAIN_CONTENT_ID}
+      className={`main-content ${hero ? 'js-with-hero ' : ''}js-focus-visible`}
+    >
+      <ToastContainer parentId={MAIN_CONTENT_ID} />
+      <SnackBar />
+      <Header>
+        <Navbar menuData={menuData} />
+      </Header>
 
-    <Footer />
-  </div>
-);
+      <main>
+        {hero && hero}
+        <InnerWrapper>
+          {title && <h1>{title}</h1>}
+          <button
+            type="button"
+            onClick={() =>
+              toast.show({ label: 'toast' }, { timeout: 30000, position: 'bottom-center' })
+            }
+          >
+            New Toast
+          </button>
+          {children}
+        </InnerWrapper>
+      </main>
+
+      <Footer />
+    </div>
+  );
+};
 
 export default Layout;

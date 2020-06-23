@@ -15,6 +15,7 @@ const IconWrapper = styled.button`
   height: 40px;
   min-width: unset;
   background: transparent;
+
   :hover {
     color: white;
   }

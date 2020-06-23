@@ -7,6 +7,10 @@
     "metadescription": "It's a site description meta"
   },
   "page-not-found": "Sorry, we couldn't find that page.",
+  "cookie-warning": {
+    "text": "We serve cookies on this site to analyze traffic, remember your preferences, and optimize your experience.",
+    "details": "More details"
+  },
   "form": {
     "send": "Send",
     "pls-wait": "Please, wait...",

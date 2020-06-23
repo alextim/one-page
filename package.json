@@ -40,8 +40,9 @@
     "check:security": "audit-ci --critical",
     "format": "prettier --write src/**/*.{js,jsx,ts,tsx}",
     "lint": "eslint --fix src/**/*.{js,jsx,ts,tsx}",
-    "stylelint": "stylelint --syntax css-in-js src/**/*.{js,jsx,ts,tsx}",
+    "stylelint": "stylelint --syntax css-in-js src/**/*.{js,jsx,ts,tsx,css,scss}",
     "analyze": "node ./scripts/analyze.js",
+    "analyze2": "source-map-explorer 'build/static/js/*.js'",
     "stats": "node ./scripts/stats.js",
     "dup": "node ./scripts/dup.js",
     "im": "node ./scripts/im.js"
@@ -107,9 +108,12 @@
     "license-checker": "^25.0.1",
     "lint-staged": "^10.2.11",
     "prettier": "^2.0.5",
+    "prettier-eslint": "^11.0.0",
+    "prettier-eslint-cli": "^5.0.0",
     "react-snap": "^1.23.0",
     "react-test-renderer": "^16.13.1",
     "sharp": "^0.25.4",
+    "source-map-explorer": "^2.4.2",
     "stylelint": "^13.6.1",
     "stylelint-config-standard": "^20.0.0"
   }

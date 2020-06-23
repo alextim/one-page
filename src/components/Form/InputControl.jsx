@@ -7,7 +7,8 @@ const FormControl = styled.div`
   display: flex;
   flex-direction: column;
   margin-bottom: 1rem;
-  &:last-type-of {
+
+  &:last-of-type {
     margin-bottom: 0;
   }
 `;
@@ -57,7 +58,7 @@ const TextArea = styled.textarea(textAreaStyle);
 const FormLabel = styled.label`
   padding-bottom: 0.25rem;
 
-  &:after {
+  &::after {
     content: '${(p) => (p.isrequired ? '*' : '')}';
     color: red;
     margin-left: 0.25rem;
@@ -77,6 +78,7 @@ const InputControl = ({ name, label, type, value, required, error, onChange, ...
         </FormLabel>
       )}
       <Input
+        id={name}
         name={name}
         type={type || 'text'}
         required={required}
@@ -99,6 +101,7 @@ const TextAreaControl = ({ name, label, value, required, error, onChange, ...pro
         </FormLabel>
       )}
       <TextArea
+        id={name}
         name={name}
         required={required}
         value={value}
