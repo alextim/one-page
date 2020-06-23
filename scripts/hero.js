@@ -1,11 +1,15 @@
+/* eslint-disable no-restricted-syntax */
 /* eslint-disable no-console */
 const sharp = require('sharp');
 const fs = require('fs');
+// const path = require('path');
 
 const srcDirectory = 'src/images';
 const name = 'hero';
 
 const dstDirectory = 'src/images/hero';
+
+const JPEG_QUALITY = 60;
 
 const aspects = {
   '16:9': { w: 16, h: 9 },
@@ -24,6 +28,22 @@ const srcWidthes = {
   '600': aspects['1:1'],
   '480': aspects['1:1'],
 };
+
+/*
+const clean = (directory) => {
+  fs.readdir(directory, (err, files) => {
+    if (err) throw err;
+
+    for (const file of files) {
+      fs.unlink(path.join(directory, file), (er) => {
+        if (er) throw er;
+      });
+    }
+  });
+};
+
+clean(dstDirectory);
+*/
 
 const widthes = Object.keys(srcWidthes).map((w) => parseInt(w, 10));
 
@@ -62,6 +82,7 @@ Object.keys(srcWidthes).forEach((key) => {
 
   sharp(`${srcDirectory}/${name}.jpg`)
     .resize({ width: w, height: h })
+    .jpeg({ quality: JPEG_QUALITY })
     .toFile(`${dstDirectory}/${imgToImport}`)
     .then(() => {
       console.log('Done w=', w, 'h=', h);

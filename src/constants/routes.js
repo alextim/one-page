@@ -1,6 +1,6 @@
 export const HOME = '/';
-export const LOGIN = '/login';
+// export const LOGIN = '/login';
 export const PRIVACY = '/privacy';
 export const BLOG = '/blog';
 
-export const ADMIN = 'https://admin-24bec.web.app';
+// export const ADMIN = 'https://admin-24bec.web.app';

@@ -15,10 +15,12 @@ const NotFound = React.lazy(() => import('../pages/NotFound/index.js'));
 const PrivacyEn = React.lazy(() => import('../pages/Privacy/en/index.jsx'));
 const PrivacyRu = React.lazy(() => import('../pages/Privacy/ru/index.jsx'));
 
+/*
 const AdminRedirect = () => {
   window.location = ROUTES.ADMIN;
   return null;
 };
+*/
 
 /*
 const getRuntimeLocale = () => {
@@ -85,7 +87,7 @@ const PrivacyRoute = ({ match }) => {
 };
 
 const routeTemplates = [
-  { path: ROUTES.ADMIN, localize: false, exact: true, component: AdminRedirect },
+  //  { path: ROUTES.ADMIN, localize: false, exact: true, component: AdminRedirect },
   { path: ROUTES.HOME, localize: true, exact: true, component: HomeRoute },
   { path: ROUTES.BLOG, localize: true, exact: true, component: BlogRoute },
   { path: ROUTES.PRIVACY, localize: true, exact: true, component: PrivacyRoute },
