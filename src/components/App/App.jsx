@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { ThemeProvider } from 'emotion-theming';
+import { HelmetProvider } from 'react-helmet-async';
+
 import AppRouter from './AppRouter';
 
 import {
@@ -22,19 +24,21 @@ const App = () => {
   const [isCookieWarned, setIsCookieWarned] = useState(false);
 
   return (
-    <ThemeProvider theme={isDark ? themeDark : themeLight}>
-      <ColorModeProvider isDark={isDark} setIsDark={setIsDark}>
-        <I18nProvider>
-          <CookieWarningProvider
-            isCookieWarned={isCookieWarned}
-            onCloseCookierWarning={() => setIsCookieWarned(true)}
-          >
-            <GlobalStyles />
-            <AppRouter />
-          </CookieWarningProvider>
-        </I18nProvider>
-      </ColorModeProvider>
-    </ThemeProvider>
+    <HelmetProvider>
+      <ThemeProvider theme={isDark ? themeDark : themeLight}>
+        <ColorModeProvider isDark={isDark} setIsDark={setIsDark}>
+          <I18nProvider>
+            <CookieWarningProvider
+              isCookieWarned={isCookieWarned}
+              onCloseCookierWarning={() => setIsCookieWarned(true)}
+            >
+              <GlobalStyles />
+              <AppRouter />
+            </CookieWarningProvider>
+          </I18nProvider>
+        </ColorModeProvider>
+      </ThemeProvider>
+    </HelmetProvider>
   );
 };
 

@@ -1,18 +1,25 @@
-import React, { Suspense } from 'react';
+import React /* , { Suspense } */ from 'react';
 import ReactDOM from 'react-dom';
 
 import App from './components/App';
 import * as serviceWorker from './serviceWorker';
 
 import './i18n';
+// import Loading from './components/Loading';
 
 const rootElement = document.getElementById('root');
-
+/*
 const WrappedApp = () => (
   <React.StrictMode>
-    <Suspense fallback="loading">
+    <Suspense fallback={<Loading />}>
       <App />
     </Suspense>
+  </React.StrictMode>
+);
+*/
+const WrappedApp = () => (
+  <React.StrictMode>
+    <App />
   </React.StrictMode>
 );
 

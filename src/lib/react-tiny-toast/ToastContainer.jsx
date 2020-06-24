@@ -106,8 +106,8 @@ const ToastContainer = ({ parentId }) => {
             <Label>{label}</Label>
             {actions && (
               <ActionsWrapper stacked={stacked}>
-                {actions.map(({ title, to, onClick }) => (
-                  <Action as={to ? 'Link' : ''} to={to} onClick={onClick}>
+                {actions.map(({ title, to, onClick }, i) => (
+                  <Action key={i} as={to ? 'Link' : ''} to={to} onClick={onClick}>
                     {title}
                   </Action>
                 ))}

@@ -34,7 +34,7 @@ const ModalContent = ({ loading, error, handleButtonClick }) => {
           <p>{t('form.pls-wait')}</p>
         </ModalBody>
         <ModalFooter justify="center">
-          <Spinner width={2} />
+          <Spinner w={2} />
           <Button onClick={handleButtonClick} primary>
             {t('form.cancel')}
           </Button>

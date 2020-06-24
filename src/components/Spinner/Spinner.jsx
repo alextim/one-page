@@ -12,27 +12,35 @@ const Wrapper = styled.div`
   position: relative;
 `;
 
-const Inner = styled.div`
+const InnerWrapper = styled.div`
   border: 2px solid #ccc;
   border-top-color: ${(p) => p.theme.colors.text};
 `;
-
-const Spinner = ({ width = 1.5 }) => {
-  const innerWrapperStyle = css`
+/**
+ *
+ * @param {w} w spinner width/height in rem
+ *
+ * default - 1.5rem
+ *
+ * Sample: <Spinner w="2" />
+ *
+ */
+const Spinner = ({ w = 1.5 }) => {
+  const style = css`
     position: absolute;
     top: 50%;
     left: 50%;
-    width: ${width}rem;
-    height: ${width}rem;
-    margin-top: -${width / 2}rem;
-    margin-left: -${width / 2}rem;
+    width: ${w}rem;
+    height: ${w}rem;
+    margin-top: -${w / 2}rem;
+    margin-left: -${w / 2}rem;
     border-radius: 50%;
     animation: ${spin} 0.8s linear infinite;
   `;
 
   return (
-    <Wrapper css={innerWrapperStyle}>
-      <Inner css={innerWrapperStyle} />
+    <Wrapper css={style}>
+      <InnerWrapper css={style} />
     </Wrapper>
   );
 };

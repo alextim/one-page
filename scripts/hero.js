@@ -9,7 +9,7 @@ const name = 'hero';
 
 const dstDirectory = 'src/images/hero';
 
-const JPEG_QUALITY = 60;
+const IMG_QUALITY = 60;
 
 const aspects = {
   '16:9': { w: 16, h: 9 },
@@ -51,10 +51,11 @@ const maxWidth = Math.max.apply(null, widthes);
 
 let imp = '';
 let sizes = '';
-let srcSet = '';
+let jpgSrcSet = '';
+let webpSrcSet = '';
 
-const formatImgFileName = (w, h) => `${name}-${w}x${h}.jpg`;
-const formatImgReact = (w) => `${name}${w}`;
+const formatImgFileName = (w, h, ext) => `${name}-${w}x${h}.${ext}`;
+const formatImgReact = (w, ext) => `${name}${ext}${w}`;
 
 Object.keys(srcWidthes).forEach((key) => {
   const w = parseInt(key, 10);
@@ -63,15 +64,23 @@ Object.keys(srcWidthes).forEach((key) => {
   const h = typeof aspect === 'object' ? ((w * aspect.h) / aspect.w) | 0 : aspect;
   console.log('Start width=', w, 'height=', h);
 
-  const imgToImport = formatImgFileName(w, h);
-  const imgReact = formatImgReact(w);
+  const jpgToImport = formatImgFileName(w, h, 'jpg');
+  const webpToImport = formatImgFileName(w, h, 'webp');
+  const jpgReact = formatImgReact(w, 'jpg');
+  const webpReact = formatImgReact(w, 'webp');
 
-  imp += `import ${imgReact} from '../../../../images/hero/${imgToImport}';\r\n`;
+  imp += `import ${jpgReact} from '../../../../images/hero/${jpgToImport}';\r\n`;
+  imp += `import ${webpReact} from '../../../../images/hero/${webpToImport}';\r\n`;
 
-  if (srcSet) {
-    srcSet += ',\r\n';
+  if (jpgSrcSet) {
+    jpgSrcSet += ',\r\n';
   }
-  srcSet += `      \${${imgReact}} ${w}w`;
+  jpgSrcSet += `        \${${jpgReact}} ${w}w`;
+
+  if (webpSrcSet) {
+    webpSrcSet += ',\r\n';
+  }
+  webpSrcSet += `        \${${webpReact}} ${w}w`;
 
   /*
   if (sizes) {
@@ -82,33 +91,64 @@ Object.keys(srcWidthes).forEach((key) => {
 
   sharp(`${srcDirectory}/${name}.jpg`)
     .resize({ width: w, height: h })
-    .jpeg({ quality: JPEG_QUALITY })
-    .toFile(`${dstDirectory}/${imgToImport}`)
+    .jpeg({ quality: IMG_QUALITY })
+    .toFile(`${dstDirectory}/${jpgToImport}`)
     .then(() => {
-      console.log('Done w=', w, 'h=', h);
+      console.log('Done jpg w=', w, 'h=', h);
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+
+  sharp(`${srcDirectory}/${name}.jpg`)
+    .resize({ width: w, height: h })
+    .webp({ quality: IMG_QUALITY })
+    .toFile(`${dstDirectory}/${webpToImport}`)
+    .then(() => {
+      console.log('Done webp w=', w, 'h=', h);
     })
     .catch((err) => {
       console.error(err);
     });
 });
 
-// sizes += `,\r\n ${maxWidth}w`;
 sizes = '100vw';
+// sizes += `,\r\n ${maxWidth}w`;
 
 const js = `import React from 'react';
 
 ${imp}
 const HeroImg = ({ alt }) => (
+  <picture>
+    <source
+      type="image/webp"
+      sizes="${sizes}"
+      srcSet={\`\r\n${webpSrcSet}\r\n      \`}
+    />
+    <source
+      type="image/jpeg"
+      sizes="${sizes}"
+      srcSet={\`\r\n${jpgSrcSet}\r\n      \`}
+    />
+    <img
+      sizes="${sizes}"
+      srcSet={\`\r\n${jpgSrcSet}\r\n      \`}
+      src={${formatImgReact(maxWidth, 'jpg')}}
+      alt={alt}
+    />
+  </picture>
+);
+/*
+const HeroImg = ({ alt }) => (
   <img
     sizes="${sizes}"
-    srcSet={\`\r\n${srcSet}\r\n    \`}
-    src={${formatImgReact(maxWidth)}}
+    srcSet={\`\r\n${jpgSrcSet}\r\n      \`}
+    src={${formatImgReact(maxWidth, 'jpg')}}
     alt={alt}
   />
 );
-
+*/
 export default HeroImg;
-
 `;
 
 console.log(js);
