@@ -26,8 +26,9 @@ yarn-error.log*
 .firebaserc
 .firebase
 
-/src/images/hero/*.*
+/public/img/hero
+/public/img/gallery
 
-package-lock.json
+# package-lock.json
 
-email-field-name.js
+# email-field-name.js

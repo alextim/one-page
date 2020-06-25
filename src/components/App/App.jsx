@@ -1,6 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ThemeProvider } from 'emotion-theming';
 import { HelmetProvider } from 'react-helmet-async';
+
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 import AppRouter from './AppRouter';
 
@@ -22,6 +25,12 @@ const App = () => {
   const [isDark, setIsDark] = useDarkMode();
   // const [isCookieWarned, setIsCookieWarned] = useCookieWarned();
   const [isCookieWarned, setIsCookieWarned] = useState(false);
+  useEffect(() => {
+    AOS.init({
+      duration: 2000,
+    });
+    AOS.refresh();
+  }, []);
 
   return (
     <HelmetProvider>

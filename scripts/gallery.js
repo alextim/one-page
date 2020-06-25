@@ -4,12 +4,10 @@ const sharp = require('sharp');
 const fs = require('fs');
 // const path = require('path');
 
-const srcDirectory = 'src/images';
-const name = 'hero';
-console.log(process.env.PUBLIC_URL);
-const IMG_DIR = 'img/hero';
+const srcDirectory = 'src/images/gallery';
+
+const IMG_DIR = 'img/gallery';
 const dstDirectory = `public/${IMG_DIR}`;
-// const dstDirectory = 'src/images/hero';
 
 const IMG_QUALITY = 60;
 
@@ -32,21 +30,31 @@ const srcWidthes = {
   '360': aspects['1:1'],
 };
 
-/*
-const clean = (directory) => {
-  fs.readdir(directory, (err, files) => {
-    if (err) throw err;
+const { promises } = fs;
 
-    for (const file of files) {
-      fs.unlink(path.join(directory, file), (er) => {
-        if (er) throw er;
-      });
-    }
-  });
-};
+async function myF() {
+  let names;
+  try {
+    names = await promises.readdir(srcDirectory);
+  } catch (e) {
+    console.log('e', e);
+  }
+  if (names === undefined) {
+    return undefined;
+  }
+  return names.map((file) => `${srcDirectory}/${file}`);
+}
 
-clean(dstDirectory);
-*/
+let fileList;
+
+async function processFiles() {
+  fileList = await myF();
+  console.log(fileList);
+}
+
+processFiles();
+
+return;
 
 // eslint-disable-next-line no-bitwise
 const getH = (w, aspect) => (typeof aspect === 'object' ? ((w * aspect.h) / aspect.w) | 0 : aspect);
