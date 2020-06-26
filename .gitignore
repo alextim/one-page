@@ -28,6 +28,7 @@ yarn-error.log*
 
 /public/img/hero
 /public/img/gallery
+/public/google*.html
 
 # package-lock.json
 

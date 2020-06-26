@@ -48,7 +48,8 @@
     "analyze2": "source-map-explorer 'build/static/js/*.js'",
     "stats": "node ./scripts/stats.js",
     "dup": "node ./scripts/dup.js",
-    "hero": "node ./scripts/hero.js",
+    "clean": "node ./scripts/hero/clean.js",
+    "hero": "node ./scripts/hero/hero.js",
     "gallery": "node ./scripts/gallery.js"
   },
   "husky": {
