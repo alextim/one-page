@@ -117,7 +117,7 @@
     "prettier-eslint-cli": "^5.0.0",
     "react-snap": "^1.23.0",
     "react-test-renderer": "^16.13.1",
-    "sharp": "^0.25.4",
+    "sharp": "^0.30.5",
     "source-map-explorer": "^2.4.2",
     "stylelint": "^13.6.1",
     "stylelint-config-standard": "^20.0.0"
